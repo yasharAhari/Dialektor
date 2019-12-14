@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 
-from dialektor.views import index_home
+from dialektor.views import index_home, signup
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^$', index_home)
+    url(r'(^$|login$)', index_home),  # Regex: Either nothing (aka. index page) or /login
+    url(r'signup$', signup),          # signup page
+
 ]
