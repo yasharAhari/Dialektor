@@ -1,0 +1,5 @@
+Django==3.0
+asgiref==3.2.3
+pytz==2019.3
+setuptools==40.8.0
+sqlparse==0.3.0
