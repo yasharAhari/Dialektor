@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample File upload</title>
+</head>
+<body>
+<h2>Sample file upload</h2>
+<p>A simple implementation to send file from browser to google cloud storage bucket.</p>
+<p><strong>Warning!</strong> Do not upload any important and private file, you will not have access to it on cloud!</p>
+
+<form enctype="multipart/form-data" method="post"> {% csrf_token %}
+    Select file to upload
+    <input id="file_up" name="uploadFile" type="file">
+    <input name="submit" type="submit" value="Upload">
+</form>
+</body>
+</html>

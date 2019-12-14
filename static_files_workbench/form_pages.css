@@ -1,0 +1,98 @@
+html,body
+{
+    margin: 0;
+    padding: 0;
+
+}
+body
+{
+    background-color: #EFF4F0;
+}
+#branding
+{
+    color: #d2d9db;
+    text-align: center;
+    font-family: Helvetica;
+}
+#header
+{
+    background-color: #384640;
+    height: 75px;
+    margin-top:0;
+    padding: 1px;
+}
+#login_box
+{
+    background-color: #244C60;
+    width: 320px;
+    display: inline-block;
+    margin-top: 75px;
+    padding: 50px;
+    border-radius: 20px;
+
+}
+
+#signup_box
+{
+    background-color: #244C60;
+    width: 500px;
+    display: inline-block;
+    margin-top: 75px;
+    padding: 50px;
+    border-radius: 20px;
+}
+
+.css_form_inputs
+{
+    text-align: center;
+    width: 75%;
+    font-size: 20px;
+    border-radius: 10px;
+
+}
+
+.form_submit
+{
+    width: 150px;
+    border-radius: 25px;
+    background-color:#EFF4F0;
+    font-size: 20px;
+    color: #384640;
+    font-family: Helvetica;
+    font-weight: bold;
+    border-style: unset;
+    cursor: pointer;
+}
+
+.css_form_entities
+{
+    margin: 10px;
+    padding: 2px;
+    height: 50px;
+}
+
+.form_texts
+{
+    text-align: center;
+    color: #EFF4F0;
+    font-size: 20px;
+    font-family: Helvetica;
+}
+#login_box_wrapper
+{
+    text-align: center;
+}
+#css_forget_pass
+{
+    color: #d2d9db;
+}
+
+#required
+{
+    border-style: solid;
+    border-radius: 25px;
+    border-width: 1px;
+    border-color: #ff0013;
+    color: #f5f5f5;
+
+}

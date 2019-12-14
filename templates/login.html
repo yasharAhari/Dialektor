@@ -1,0 +1,30 @@
+{% load  static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dialektor</title>
+    <link rel="stylesheet" href="{% static "form_pages.css" %}">
+</head>
+<body>
+<div id="header">
+    <div id="branding"><h1 id="branding">Dialektor</h1></div>
+</div>
+<div id="login_box_wrapper">
+    <div id="login_box" >
+        <form method="post" enctype="multipart/form-data"> {% csrf_token %}
+            <input class="css_form_inputs css_form_entities" type="text" placeholder="Username">
+            <br>
+            <input class="css_form_inputs css_form_entities" type="password" placeholder="Password">
+            <br>
+            <input class="login_button css_form_entities form_submit" type="submit" value="Login">
+            <input class="login-button css_form_entities form_submit" type="button" value="Sign Up"
+                   onclick="window.location.href='/signup';" >
+            <br>
+            <a id="css_forget_pass" href="/forget_pass">Forget password?</a>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+{% load  static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign up</title>
+    <link rel="stylesheet" href="{% static "form_pages.css" %}">
+    <script src="{% static "js/signup.js" %}"></script>
+</head>
+<body>
+<div id="login_box_wrapper">
+    <div id="signup_box">
+        <form method="post" enctype="multipart/form-data"> {% csrf_token %}
+
+            <input data-req="true" class="css_form_inputs css_form_entities js_fi" type="email" name="email" placeholder="Email" >
+            <br>
+            <input data-req="true" class="css_form_inputs css_form_entities js_fi" type="text" name="username" placeholder="Username">
+            <br>
+            <input data-req="true" class="css_form_inputs css_form_entities js_fi" type="password" name="password" placeholder="Password">
+            <br>
+            <input data-req="true" class="css_form_inputs css_form_entities js_fi" type="text" name="first_name" placeholder="First Name">
+            <br>
+            <input data-req="true" class="css_form_inputs css_form_entities js_fi" type="text" name="last_name" placeholder="Last Name">
+            <br>
+            <select id="js_type_select" class="css_form_entities css_form_inputs " name="use_type" onchange="use_type_change()">
+                <option value="non_specified_use">Personal use</option>
+                <option value="education">Educational use</option>
+                <option value="medical">Medical use</option>
+                <option value="research">Research use</option>
+            </select>
+            <br>
+            <select class="css_form_entities css_form_inputs js_edu_extra js_extra" name="edu_use_type" hidden>
+                <option value="language">Learning new language</option>
+                <option value="music">Learning new instrument</option>
+                <option value="else">Something else</option>
+            </select>
+            <br class="js_res_extra js_extra" hidden>
+            <p class="form_texts js_res_extra js_extra" hidden>Please provide following information about your research institution:</p>
+            <input data-req="cond" class="css_form_inputs css_form_entities js_res_extra js_extra js_fi" name="institution_name" placeholder="Name Of Institution" hidden>
+            <br class="js_res_extra js_extra" hidden>
+            <input data-req="cond" class="css_form_inputs css_form_entities js_res_extra js_extra js_fi" name="institution_address1" placeholder="Street" hidden>
+            <br class="js_res_extra js_extra" hidden>
+            <input data-req="cond" class="css_form_inputs css_form_entities js_res_extra js_extra js_fi" name="institution_address2" placeholder="Street 2" hidden>
+            <br class="js_res_extra js_extra" hidden>
+            <input data-req="cond" class="css_form_inputs css_form_entities js_res_extra js_extra js_fi" name="institution_city" placeholder="City" hidden>
+            <br class="js_res_extra js_extra" hidden>
+            <input data-req="cond" class="css_form_inputs css_form_entities js_res_extra js_extra js_fi" name="institution_state" placeholder="State" hidden>
+            <br class="js_res_extra js_extra" hidden>
+            <input data-req="cond" class="css_form_inputs css_form_entities js_res_extra js_extra js_fi" name="institution_country" placeholder="Country" hidden>
+            <br class="js_res_extra js_extra" hidden>
+            <p id="required" hidden></p>
+            <input class="login-button css_form_entities form_submit" type="button" value="Sign Up"
+                   onclick="check_inputs();" >
+            <br>
+            <a id="css_forget_pass" href="/login">Have an account?</a>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
