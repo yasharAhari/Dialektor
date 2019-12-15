@@ -24,7 +24,8 @@ SECRET_KEY = '7b7^dshdx=*&zval+53)z7vzzttfmvs=r2y@ec0ar-0oaw=ug_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dialekt.appspot.com']
+ALLOWED_HOSTS = ['dialekt.appspot.com',
+                 '127.0.0.1']
 
 # Application definition
 
