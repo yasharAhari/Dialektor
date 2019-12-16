@@ -15,6 +15,7 @@ Zachary Arani<br>
 
 ### Version info
 Currently running version on google cloud: 0.0.1
+[dialekt.appspot.com_version_0.0.1](https://dialekt.appspot.com/)
 
 About Version 0.0.1:<br>
 It is the initial working bed to implement backend functionality. 
