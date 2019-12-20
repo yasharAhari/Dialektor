@@ -16,8 +16,14 @@ Zachary Arani<br>
 
 ### Version info
 
-Currently running version on google cloud: 0.0.1
-[dialekt.appspot.com_version_0.0.1](https://dialekt.appspot.com/)
+Currently running version on google cloud: 0.0.2
+[dialekt.appspot.com_version_0.0.2](https://dialekt.appspot.com/)
+
+About Version 0.0.2:<br>
+There are few small but necessary changes on the way templates are structured
+to meet the Django format specifications. Also all of the static files moved to dedicated 
+google storage bucket. This will not add any new functionality from version 0.0.1.
+Plus: Added favicon.   
 
 About Version 0.0.1:<br>
 It is the initial working bed to implement backend functionality.
@@ -43,7 +49,7 @@ Django app.
 This is a great article about the process:<br>
 [Deploying a Django Application to Google App Engine](https://medium.com/@BennettGarner/deploying-a-django-application-to-google-app-engine-f9c91a30bd35)
 
-Also A word about [Static Files](#Static-Files!)
+Also A word about [Static Files](#static-files)
 
 #### Installation and running locally
 
@@ -89,7 +95,7 @@ You should be able to see the website on
 Each time after few feature implemented, I will be updating it to the Google cloud.
 I am thinking to assign a version number to each upload as something like a release version.
 
-#### <a name="statics"></a>Static Files!
+#### Static Files!
 
 The Django framework is not meant to serve static files. Static files are basically all the files that wont get changed by Django. These include all stylesheets (.CSS), JavaScript (.js) and any other images (like logo, favicon, ...). The reason is that the Django is for serving a content that meant to change. 
 
