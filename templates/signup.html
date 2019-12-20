@@ -1,13 +1,18 @@
+{% extends 'Dialektor_general.html' %}
+
 {% load  static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign up</title>
-    <link rel="stylesheet" href="{% static "form_pages.css" %}">
-    <script src="{% static "js/signup.js" %}"></script>
-</head>
-<body>
+
+{% block title %}
+Signup
+{% endblock %}
+
+{% block extrahead%}
+    <link rel="stylesheet" href="https://storage.googleapis.com/dialekt_static/form_pages.css">
+    <script src="https://storage.googleapis.com/dialekt_static/js/signup.js"></script>
+{% endblock %}
+
+{% block content %}
+
 <div id="login_box_wrapper">
     <div id="signup_box">
         <form method="post" enctype="multipart/form-data"> {% csrf_token %}
@@ -57,5 +62,4 @@
     </div>
 </div>
 
-</body>
-</html>
+{% endblock %}

@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
+from django.views.generic import RedirectView
 
 from dialektor.views import index_home, signup
 
@@ -23,5 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'(^$|login$)', index_home),  # Regex: Either nothing (aka. index page) or /login
     url(r'signup$', signup),          # signup page
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/graphics/icon/favicon.ico')), # Google chrome favicon fix
+
+
 
 ]
