@@ -43,6 +43,8 @@ Django app.
 This is a great article about the process:<br>
 [Deploying a Django Application to Google App Engine](https://medium.com/@BennettGarner/deploying-a-django-application-to-google-app-engine-f9c91a30bd35)
 
+Also A word about [Static Files](#Static-Files!)
+
 #### Installation and running locally
 
 As usual, start with a git clone, <br>
@@ -57,7 +59,11 @@ go to the `Dialektor` directory by typing:
 ls Dialektor
 ```
 
-<span style="color:red">\*Note:</span> For the following command to run, you may first need to install the required modules list in `requirements.txt` (if you haven't already). To do this, simply navigate to the directory containting `requirements.txt` and type `pip install -r requirements.txt`
+<span style="color:red">\*Note:</span> For the following command to run, you may first need to install the required modules list in `requirements.txt` (if you haven't already). To do this, simply navigate to the directory containting `requirements.txt` and type
+
+ ``` bash
+pip install -r requirements.txt
+ ```
 
 Then run the following command:<br>
 
@@ -82,6 +88,26 @@ You should be able to see the website on
 
 Each time after few feature implemented, I will be updating it to the Google cloud.
 I am thinking to assign a version number to each upload as something like a release version.
+
+#### <a name="statics"></a>Static Files!
+
+The Django framework is not meant to serve static files. Static files are basically all the files that wont get changed by Django. These include all stylesheets (.CSS), JavaScript (.js) and any other images (like logo, favicon, ...). The reason is that the Django is for serving a content that meant to change. 
+
+<strong>All the statics files that are located in the statics directory are hosted on a dedicated google storage bucket. </strong>
+
+For the development purpose, you can add your static files in statics directory and for use the following line every where you need an address for that file: 
+
+```django
+{% static 'path/to/your_FILE/in/static/dir/file.css' %}
+```
+
+for example to load the stylesheet in an html template:
+
+```django
+<link rel="stylesheet" href="{% static 'file.css' %}" />
+```
+
+
 
 If you like to try it on your own google cloud account, I suggest you to follow the instructions on
 this link:
