@@ -14,14 +14,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf.urls import url
-
-from dialektor.views import index_home, signup
+from django.views.generic.base import TemplateView 
+from dialektor.views import index_home, signup, create_user, login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'(^$|login$)', index_home),  # Regex: Either nothing (aka. index page) or /login
-    url(r'signup$', signup),          # signup page
-
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
 ]

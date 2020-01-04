@@ -1,0 +1,21 @@
+<!-- this is a general template for all dialektor pages -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+{% block head %}
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" href="https://storage.googleapis.com/dialekt_static/graphics/icon/favicon.ico">
+{% endblock %}
+{% block extrahead %}
+{% endblock %}
+</head>
+
+<body>
+{% include 'Dialektor_Header.html' %}
+{% block content %}
+{% endblock %}
+</body>
+</html>

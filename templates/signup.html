@@ -10,7 +10,7 @@
 <body>
 <div id="login_box_wrapper">
     <div id="signup_box">
-        <form method="post" enctype="multipart/form-data"> {% csrf_token %}
+        <form method="post" enctype="multipart/form-data" action="signup/create_user"> {% csrf_token %}
 
             <input data-req="true" class="css_form_inputs css_form_entities js_fi" type="email" name="email" placeholder="Email" >
             <br>
@@ -49,7 +49,7 @@
             <input data-req="cond" class="css_form_inputs css_form_entities js_res_extra js_extra js_fi" name="institution_country" placeholder="Country" hidden>
             <br class="js_res_extra js_extra" hidden>
             <p id="required" hidden></p>
-            <input class="login-button css_form_entities form_submit" type="button" value="Sign Up"
+            <input class="login-button css_form_entities form_submit" type="submit" value="Sign Up"
                    onclick="check_inputs();" >
             <br>
             <a id="css_forget_pass" href="/login">Have an account?</a>

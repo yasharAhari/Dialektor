@@ -119,3 +119,5 @@ STATICFILES_DIRS = [
 STATIC_URL = '/static/'
 STATIC_ROOT = "./statics/"
 
+LOGIN_REDIRECT_URL = '/'
+SITE_URL = "http://127.0.0.1:8000"
