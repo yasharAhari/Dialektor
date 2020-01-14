@@ -1,6 +1,8 @@
-Django==3.0
-asgiref==3.2.3
+certifi==2019.11.28
+Django==2.2.5
+pip==19.3.1
+psycopg2==2.8.4
 pytz==2019.3
-setuptools==40.8.0
+setuptools==44.0.0.post20200106
 sqlparse==0.3.0
-google-cloud-datastore
+wheel==0.33.6

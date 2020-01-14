@@ -15,12 +15,13 @@ def index_home(request, second=None):
     return render(request, 'home.html')
 
 def create_user(request):
+    print(request.POST)
     email = request.POST['email']
     username = request.POST['username']
     password = request.POST['password']
     firstName = request.POST['first_name']
     lastName = request.POST['last_name']
-    User.objects.create_user(username, email, password, first_name=firstName, last_name=lastName)
+    #User.objects.create_user(username, email, password, first_name=firstName, last_name=lastName)
     return render(request, 'signup.html')
 
 def signup(request):

@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'Dialektor_.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+        'NAME': 'dialekt-users',
+        'USER': 'dialekt-app',
+        'PASSWORD': 'GpsLoGKmOOFi5JEi'
     }
 }
 
@@ -113,11 +117,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
+
+STATIC_URL = '/static/'
+
+STATIC_ROOT = "./statics/"
+
 STATICFILES_DIRS = [
     "./static_files_workbench",
 ]
-STATIC_URL = '/static/'
-STATIC_ROOT = "./statics/"
 
 LOGIN_REDIRECT_URL = '/'
 SITE_URL = "http://127.0.0.1:8000"
