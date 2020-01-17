@@ -2,7 +2,7 @@ from django.shortcuts import render
 from google.cloud import datastore
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
-
+from dialektor.models import Researcher
 # Create your views here.
 
 
@@ -21,7 +21,13 @@ def create_user(request):
     password = request.POST['password']
     firstName = request.POST['first_name']
     lastName = request.POST['last_name']
-    #User.objects.create_user(username, email, password, first_name=firstName, last_name=lastName)
+    instName = request.POST['institution_name']
+    instAddrOne = request.POST['institution_address1']
+    instAddrTwo = request.POST['institution_address2']
+    instCity = request.POST['institution_city']
+    instState = request.POST['institution_state']
+    instCountry = request.POST['institution_country']
+    Researcher.objects.create_user(username, email, password, first_name=firstName, last_name=lastName, instName=instName, instAddrOne=instAddrOne, instAddrTwo=instAddrTwo, instCity=instCity, instState=instState, instCountry=instCountry)
     return render(request, 'signup.html')
 
 def signup(request):
