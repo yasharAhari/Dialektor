@@ -1,15 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User, AbstractUser
 
-class User(AbstractUser):
-    is_personal = models.BooleanField(default=False)
-    is_research = models.BooleanField(default=False)
+class CustomUser(AbstractUser):
+    pass
+    inst_name = models.CharField(max_length=100)
+    inst_addr = models.CharField(max_length=100)
+    inst_city = models.CharField(max_length=100)
+    inst_state = models.CharField(max_length=100)
+    inst_country = models.CharField(max_length=100)
 
-class Researcher(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    instName = models.CharField(max_length=100)
-    instAddrOne = models.CharField(max_length=100)
-    instAddrTwo = models.CharField(max_length=100)
-    instCity = models.CharField(max_length=100)
-    instCountry = models.CharField(max_length=100)
+    def __str__(self):
+        return self.username
 
