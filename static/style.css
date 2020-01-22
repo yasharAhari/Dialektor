@@ -1,0 +1,51 @@
+html, body
+{
+  margin:0;
+  padding:0;
+}
+
+#profile
+{
+  padding: 20px;
+  background-color: #dd3639;
+  width: 150px;
+  text-align: center;
+  display: inline-block;
+  float: right;
+}
+
+#logo
+{
+  padding: 20px;
+  background-color: #dd3639;
+  width: 150px;
+  text-align: center;
+  display: inline-block;
+  float: left;
+}
+
+#profile:hover
+{
+  background-color: #e46264;
+}
+
+#logo:hover
+{
+  background-color: #e46264;
+}
+
+.content
+{
+  height: 100vh;
+  display:flex;
+  justify-content: center;
+  align-items:center;
+}
+#rec
+{
+  width: 40vmin;
+  height: 40vmin;
+  background: red;
+  border-radius: 50%;  
+  
+}

@@ -124,6 +124,7 @@ STATIC_ROOT = "./statics/"
 
 STATICFILES_DIRS = [
     "./static_files_workbench",
+    os.path.join(BASE_DIR, "static")
 ]
 
 LOGIN_REDIRECT_URL = '/'
