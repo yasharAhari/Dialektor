@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Cabin:600i&display=swap');
+
 html, body
 {
   margin:0;
@@ -6,8 +8,11 @@ html, body
 
 #profile
 {
+  font-family: 'Cabin', sans-serif;
+  font-size: 28px;
   padding: 20px;
-  background-color: #dd3639;
+  background-color: #000;
+  color:white;
   width: 150px;
   text-align: center;
   display: inline-block;
@@ -16,8 +21,11 @@ html, body
 
 #logo
 {
+  font-family: 'Cabin', sans-serif;
+  font-size: 28px;
   padding: 20px;
-  background-color: #dd3639;
+  background-color: #000;
+  color:white;
   width: 150px;
   text-align: center;
   display: inline-block;
@@ -40,12 +48,39 @@ html, body
   display:flex;
   justify-content: center;
   align-items:center;
+  flex-direction:column;
 }
 #rec
 {
   width: 40vmin;
   height: 40vmin;
-  background: red;
-  border-radius: 50%;  
+  border-radius: 50%; 
+  background:#cd0000;
   
 }
+
+#rec:hover
+{
+  background-color:#E11414
+}
+
+#pause
+{
+  display: none;
+  width: 40vmin;
+}
+
+#stop{
+  height: 40vmin;
+  width: 40vmin;
+  background-color: #000;
+  display: none;
+}
+
+#time
+{
+  display: none;
+  font-family: 'Cabin', sans-serif;
+  font-size: 28px;
+}
+
