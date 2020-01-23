@@ -8,11 +8,14 @@
     <div id="logo">dialektor</div>
     <div id="profile">{{user.username}}</div>
 </div>
-<div class="content">
+<div id="content">
+  <div id="recorder">
+    <div id="smallRec"></div>
     <div id="rec"></div>
     <img id="pause" src="static/pause.svg">
     <div id="stop"></div>
     <p id="time">0:00</p>
+  </div>
 <div>
 {% if user.is_authenticated %}
 {% else %}
