@@ -3,7 +3,7 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="static/style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
-
+<script src="static/script.js"></script>
 <div class="container">
     <div id="logo">dialektor</div>
     <div id="profile">{{user.username}}</div>
@@ -14,8 +14,9 @@
     <div id="rec"></div>
     <img id="pause" src="static/pause.svg">
     <div id="stop"></div>
-    <p id="time">0:00</p>
+    <div id="start"></div>
   </div>
+  <p id="time">0:00</p>  
 <div>
 {% if user.is_authenticated %}
 {% else %}

@@ -92,6 +92,7 @@ html, body
   border-radius: 50%;
   background:#cd0000;
   display: none;
+  margin-left: 20px;
 }
 
 #recorder
@@ -99,4 +100,13 @@ html, body
   display: flex;
   flex-direction: row-reverse;
   align-items: flex-start;
+}
+
+#start {
+  display: none;
+  width: 0;
+  height: 0;
+  border-top: 20vmin solid transparent;
+  border-left: 40vmin solid black;
+  border-bottom: 20vmin solid transparent;
 }
