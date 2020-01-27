@@ -9,11 +9,11 @@ html, body
 #profile
 {
   font-family: 'Cabin', sans-serif;
-  font-size: 28px;
+  font-size: 2.5vh;
   padding: 20px;
   background-color: #000;
   color:white;
-  width: 150px;
+  width: 10vh;
   text-align: center;
   display: inline-block;
   float: right;
@@ -22,11 +22,11 @@ html, body
 #logo
 {
   font-family: 'Cabin', sans-serif;
-  font-size: 28px;
+  font-size: 2.5vh;
   padding: 20px;
   background-color: #000;
   color:white;
-  width: 150px;
+  width: 10vh;
   text-align: center;
   display: inline-block;
   float: left;
@@ -44,7 +44,7 @@ html, body
 
 #content
 {
-  height: 100vh;
+  height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,6 +80,7 @@ html, body
 
 #time
 {
+  margin-top: 10px;
   display: none;
   font-family: 'Cabin', sans-serif;
   font-size: 28px;
@@ -90,9 +91,11 @@ html, body
   width: 5vmin;
   height: 5vmin;
   border-radius: 50%;
-  background:#cd0000;
-  display: none;
-  margin-left: 20px;
+//  background:#cd0000;
+  background: #fff;
+//  display: none;
+  margin-bottom: 20px;
+  margin-left: 35vw;
 }
 
 #recorder
@@ -109,4 +112,86 @@ html, body
   border-top: 20vmin solid transparent;
   border-left: 40vmin solid black;
   border-bottom: 20vmin solid transparent;
+}
+
+#options {
+  display: flex;
+  width: 40vw;
+
+}
+
+#data
+{
+  margin-top: 2vh;
+  display: none;
+}
+
+
+#title
+{
+  border: solid;
+  height: 3vh;
+  width: 40vw;
+  font-size: 3vh;
+  font-family: 'Cabin', sans-serif;
+  color: #000;
+}
+
+#collection 
+{
+  border: solid;
+  height: 3vh;
+  width: 40vw;
+  font-size: 3vh;
+  font-family: 'Cabin', sans-serif;
+  color: #000;
+}
+
+#category 
+{
+  border: solid;
+  height: 3vh;
+  width: 40vw;
+  font-size: 3vh;
+  font-family: 'Cabin', sans-serif;
+  color: #000;
+}
+
+#tags 
+{
+  border: solid;
+  height: 3vh;
+  width: 40vw;
+  font-size: 3vh;
+  font-family: 'Cabin', sans-serif;
+  color: #000;
+}
+
+#progress
+{
+ width:40vw;
+ height:1vh;
+ border: solid;
+ margin-top: 30px; 
+}
+
+::placeholder
+{
+  color: black;
+  opacity: 1;
+}
+
+
+#save
+{
+  border: solid;
+  width: 20vw;
+  height: 6vw;
+}
+
+#discard
+{
+  border: solid;
+  width: 20vw;
+  height: 6vw;
 }

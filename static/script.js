@@ -9,11 +9,11 @@ $(document).ready(function(){
   $("#pause").click(function(){
     $("#pause").hide();
     $("#stop").show();
-    $("#smallRec").show();
+    $("#smallRec").css({"background":"#cd0000"});
   });
 
   $("#smallRec").click(function(){
-    $("#smallRec").hide();
+    $("#smallRec").css({"background":"#fff"});
     $("#stop").hide();
     $("#pause").show();
   });
@@ -22,6 +22,7 @@ $(document).ready(function(){
     $("#stop").hide();
     $("#start").show();
     $("#smallRec").hide();
+    $("#data").show();
   });
 
 
