@@ -23,6 +23,8 @@ $(document).ready(function(){
     $("#start").show();
     $("#smallRec").hide();
     $("#data").show();
+    $("#bar").show();
+    $("#progress").show();
   });
 
 
