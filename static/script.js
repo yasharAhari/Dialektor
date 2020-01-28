@@ -27,5 +27,16 @@ $(document).ready(function(){
     $("#progress").show();
   });
 
+  $("#start").click(function(){
+    $("#start").hide();
+    $("#playPause").show();
 
+  });
+  
+  $("#playPause").click(function(){
+    $("#playPause").hide();
+    $("#start").show();
+
+  });
+    
 });

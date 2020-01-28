@@ -71,6 +71,12 @@ html, body
   width: 40vmin;
 }
 
+#playPause
+{
+  display: none;
+  width: 40vmin;
+}
+
 #stop{
   height: 40vmin;
   width: 40vmin;
