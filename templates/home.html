@@ -1,12 +1,42 @@
 {% extends 'base.html' %}
-
 {% block title %}Home{% endblock %}
-
 {% block content %}
+<link rel="stylesheet" type="text/css" href="static/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+<script src="static/script.js"></script>
+<div class="container">
+    <div id="logo">dialektor</div>
+    <div id="profile">{{user.username}}</div>
+</div>
+<div id="content">
+  <div id="options">
+    <div id="smallRec"></div>
+  </div>
+  <div id="recorder">
+    <div id="rec"></div>
+    <img id="pause" src="static/pause.svg">
+    <div id="stop"></div>
+    <div id="start"></div>
+  </div>
+  <p id="time">0:00</p>  
+  <div id="bar">
+    <div id="progress"></div>
+  </div>
+<div>
+<div id="data">
+  <form>
+    <input type="text" name="title" id="title" placeholder="Title" />
+    <br>
+    <input type="text" name="collection" id="collection" placeholder="Collection" />
+    <br>
+    <input type="text" name="category" id="category" placeholder="Category" />
+    <br>
+    <input type="text" name="tags" id="tags" placeholder="Tags" />
+    <br>
+    <input type="button" name="save" id="save" value="Save"/><input type="button" name="discard" id="discard" value="Discard" />
+  </form>
+</div>
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-  <p><a href="{% url 'logout' %}">logout</a></p>
-  <p><a href="{% url 'password_reset' %}">reset password</a></p>
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">login</a>
