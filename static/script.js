@@ -31,5 +31,16 @@ $(document).ready(function(){
     button_press(user_requests.STOP_RECORDING);
   });
 
+  $("#start").click(function(){
+    $("#start").hide();
+    $("#playPause").show();
 
+  });
+  
+  $("#playPause").click(function(){
+    $("#playPause").hide();
+    $("#start").show();
+
+  });
+    
 });
