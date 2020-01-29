@@ -34,13 +34,13 @@ $(document).ready(function(){
   $("#start").click(function(){
     $("#start").hide();
     $("#playPause").show();
-
+    button_press(user_requests.PLAY_RECORDED);
   });
   
   $("#playPause").click(function(){
     $("#playPause").hide();
     $("#start").show();
-
+    button_press(user_requests.PAUSE_RECORDED);
   });
     
 });
