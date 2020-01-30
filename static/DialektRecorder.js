@@ -13,30 +13,30 @@ const user_requests = {
     STOP_RECORDING: 3,
     PLAY_RECORDED: 4,
     PAUSE_RECORDED: 5,
-    RESUME_PLAYING: 6
-}
+    RESUME_PLAYING: 6,
+    SAVE: 7,
+    DISCARD:8
+};
 
 
 
 let mode;       // The current mode: recordMode
 
 // Recording info variables
-let recording = false;
-let context_time = 0;
+let context_time = 0;   // recording/recorded time in seconds.
 
 // Recorder instance variables
-let timer;
+let timer;  // A variable that returns from setInterval.
 
-let input;
+// the recorder object
 let recorder;
 
-let file;
-
+// The recorded Audio object
 let recordedAudio;
 
 // other html elements
-const timer_text = document.getElementById("time");
-const progress = document.getElementById("progress");
+const timer_text = document.getElementById("time");     // the timer
+const progress = document.getElementById("progress");   // progress bar
 
 recorder_initial_load();
 
@@ -45,16 +45,13 @@ recorder_initial_load();
  */
 function recorder_initial_load() {
 
-
-
-    console.log("The Recorder Loaded");
-
     // get the audio stream
     navigator.mediaDevices.getUserMedia({audio: true, video: false}).then(function (stream) {
         recorder = RecordRTC(stream, {
             type: 'audio',
            // mimeType: 'audio/webm',
-            recorderType: MediaStreamRecorder
+            recorderType: MediaStreamRecorder,
+            disableLogs: true,
         });
         mode = record_modes.READY;
         console.log('Recorder is ready!');
@@ -74,8 +71,6 @@ function button_press(user_request) {
         {
             // change the mode first
             mode = record_modes.RECORDING;
-
-
 
             // start the timer
             timer_text.innerText = "00:00";
@@ -122,14 +117,12 @@ function button_press(user_request) {
             // change the mode first
             mode = record_modes.FINISHED;
 
-            // TODO: Change style if needed
             window.clearInterval(timer);
             // finish the recording
             recorder.stopRecording(function () {
                 let blob = recorder.getBlob();
                 let url = URL.createObjectURL(blob);
                 recordedAudio = new Audio(url);
-                console.log("TOTAL TIME:" + recordedAudio.duration);
                 recordedAudio.load();
                 timer_text.innerText = "00:00/" + get_minute_second(context_time);
                 progress.style.width = "0";
@@ -153,6 +146,21 @@ function button_press(user_request) {
         recordedAudio.pause();
         window.clearInterval(timer);
     }
+    else if(user_request === user_requests.SAVE)
+    {
+        // TODO: temporary placeholder functionality until the backend is available!!
+        // Save the blob to the machine.
+        invokeSaveAsDialog(recorder.getBlob());
+    }
+    else if(user_request === user_requests.DISCARD)
+    {
+        // Total reset is required!
+        context_time = 0;
+        timer_text.innerText = "00:00";
+        recorder.reset();
+        window.clearInterval(timer);
+        mode = record_modes.READY;
+    }
 
 }
 
@@ -169,8 +177,6 @@ function record_tick()
     // get the recorded time from recorder
     context_time = context_time + 1;
 
-
-
     // Add both in one format of 00:00 and show it
     timer_text.innerText = get_minute_second(context_time);
 }
@@ -184,7 +190,7 @@ function playback_tick() {
     let total_time = context_time;
     timer_text.innerText = get_minute_second(current_time) + "/" + get_minute_second(total_time);
 
-    // set the progress bar
+    // update the progress bar
     if(current_time<= total_time)
     {
         progress.style.width = (current_time / total_time) * 100 + "%";
