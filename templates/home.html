@@ -4,6 +4,7 @@
 <link rel="stylesheet" type="text/css" href="static/style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
 <script src="static/script.js"></script>
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
 <div class="container">
     <div id="logo">dialektor</div>
     <div id="profile">{{user.username}}</div>
@@ -37,6 +38,8 @@
     <input type="button" name="save" id="save" value="Save"/><input type="button" name="discard" id="discard" value="Discard" />
   </form>
 </div>
+    <!-- This script needs to be after everything -->
+    <script src="static/DialektRecorder.js"></script>
 {% if user.is_authenticated %}
 {% else %}
   <p>You are not logged in</p>
