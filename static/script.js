@@ -25,6 +25,7 @@ $(document).ready(function(){
   });
   
   $("#stop").click(function(){
+    $("#length").html($("#time").html());
     $("#stop").hide();
     $("#start").show();
     $("#smallRec").hide();

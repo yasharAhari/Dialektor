@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from django.views.generic.base import TemplateView 
-from dialektor.views import index_home, signup, create_user, login, signup
+from dialektor.views import index_home, signup, create_user, login, signup, upload
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +25,5 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('signup/', signup),
     path('signup/create_user', create_user),
+    path('upload', upload),
 ]

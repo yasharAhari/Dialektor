@@ -228,3 +228,16 @@ input[type=button]
   font-family: 'Cabin', sans-serif;
   font-size: 2.0vh;
 }
+
+input[type=submit]
+{
+  background-color: white;
+  font-family: 'Cabin', sans-serif;
+  font-size: 2.0vh;
+}
+
+
+#length
+{
+  display: none;
+}

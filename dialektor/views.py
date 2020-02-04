@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
-from .models import CustomUser
+from .models import CustomUser, metadata
+import hashlib
 
 def login_user(request, second=None):
     # main entry page (aka. login page)
@@ -30,6 +31,19 @@ def create_user(request):
     CustomUser.objects.create_user(username, email, password, first_name=firstName, last_name=lastName, inst_name=instName, inst_addr=instAddr, inst_city=instCity, inst_state=instState, inst_country=instCountry)
     loginInfo = authenticate(username=username, password=password)
     login(request, loginInfo)
+    return redirect('/')
+
+
+def upload(request):
+    title = request.POST['title']
+    collection = request.POST['collection']
+    category = request.POST['category']
+    tags = request.POST['tags']
+    length = request.POST['length']
+    user = request.user.username
+    fileID = hash_object = hashlib.md5(str.encode(title+user+length)).hexdigest()
+    file = metadata(user_id=user, title=title,  rec_length=length, collection=collection, category=category, tags=tags, fileID=fileID)
+    file.save()
     return redirect('/')
 
 def signup(request):
