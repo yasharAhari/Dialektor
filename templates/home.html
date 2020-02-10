@@ -26,7 +26,7 @@
   </div>
 <div>
 <div id="data">
-  <form action="/upload">
+  <form action="/upload" method="post"> {% csrf_token %}
     <input type="text" name="length" id="length" /> 
     <input type="text" name="title" id="title" placeholder="Title" />
     <br>

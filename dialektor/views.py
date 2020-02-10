@@ -35,13 +35,14 @@ def create_user(request):
 
 
 def upload(request):
-    title = request.POST['title']
-    collection = request.POST['collection']
-    category = request.POST['category']
-    tags = request.POST['tags']
-    length = request.POST['length']
+    print(request.POST)
+    title = request.POST.get('title', 'none')
+    collection = request.POST.get('collection', 'none')
+    category = request.POST.get('category', 'none')
+    tags = request.POST.get('tags', 'none')
+    length = request.POST.get('length', 'none')
     user = request.user.username
-    fileID = hash_object = hashlib.md5(str.encode(title+user+length)).hexdigest()
+    fileID = hash_object = hashlib.md5(str.encode(title+user+collection)).hexdigest()
     file = metadata(user_id=user, title=title,  rec_length=length, collection=collection, category=category, tags=tags, fileID=fileID)
     file.save()
     return redirect('/')
