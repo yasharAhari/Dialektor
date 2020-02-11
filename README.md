@@ -62,6 +62,11 @@ chmod +x manage.py
 ./manage.py runserver
 ```
 
+you can also run tests 
+```bash
+python manage.py test
+```
+
 After this step the Development server will start working. 
 You should be able to see the website on 
 [http://127.0.0.1:8000/](http://127.0.0.1:8000/)

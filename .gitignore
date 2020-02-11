@@ -73,3 +73,7 @@ fabric.properties
 app.yaml
 
 *.pyc
+
+
+# Google cloud access file
+dialekt-21418024ba66.json

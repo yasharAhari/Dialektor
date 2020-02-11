@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+from google.oauth2 import service_account
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +25,8 @@ SECRET_KEY = '7b7^dshdx=*&zval+53)z7vzzttfmvs=r2y@ec0ar-0oaw=ug_'
 DEBUG = True
 
 ALLOWED_HOSTS = ['dialekt.appspot.com',
-                 '127.0.0.1']
+                 '127.0.0.1',
+                 '192.168.1.76']
 
 # Application definition
 
@@ -132,3 +133,11 @@ LOGIN_REDIRECT_URL = '/'
 SITE_URL = "http://127.0.0.1:8000"
 
 AUTH_USER_MODEL = "dialektor.CustomUser" 
+
+
+# Settings for google cloud storage
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = 'dialekt_storage'
+GS_PROJECT_ID = '240407835645'
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    "./dialektor/GS_Credentials/dialekt-21418024ba66.json")
