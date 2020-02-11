@@ -137,6 +137,10 @@ class StorageBucket:
         self.file = file
 
     def s_write_file_to_bucket(self):
+        """
+        Writes Dialektor file which is defined with metadata model to storage Bucket
+        :return: None
+        """
         if self.file is None:
             raise ValueError("No File specified")
         with DialektFileSecurity(self.file_password) as cipher:
@@ -147,6 +151,11 @@ class StorageBucket:
             file_writer.close()
 
     def s_read_file_from_bucket(self):
+        """
+        Reads the file from storage bucket which is specified with dialektor metadata. The file gets the name attribute
+        and the encryption passkey from metadata. If the file exists it will be overwritten.
+        :return: None
+        """
         with DialektFileSecurity(self.file_password) as cipher:
             file_reader = default_storage.open(self.file_id, 'r')
             encrypted_file = file_reader.read()
@@ -156,16 +165,32 @@ class StorageBucket:
             self.file = cipher.file
 
     def delete_file(self):
+        """
+        Deletes the file which is defined with dialektor metadata model. The file gets it name attribute and
+        decryption password from the metadata
+        :return: None
+        """
         default_storage.delete(self.file_id)
 
     @staticmethod
     def write_file_to_storage(name, file):
+        """
+        Static write. You can use this method to write any file to storage bucket with the name provided.
+        :param name: name of the file
+        :param file: file itself as binary
+        :return: None
+        """
         file_writer = default_storage.open(name, 'w')
         file_writer.write(file)
         file_writer.close()
 
     @staticmethod
     def read_file_from_storage(name):
+        """
+        Static read. Reads the file specified with name.
+        :param name: The name of the file to read
+        :return: the file in binary
+        """
         file_reader = default_storage.open(name, 'r')
         file = file_reader.read()
         file_reader.close()
@@ -173,4 +198,10 @@ class StorageBucket:
 
     @staticmethod
     def delete_given_file(name):
+        """
+        static delete
+        deletes the file from the google storage  
+        :param name: Name of the file
+        :return: None
+        """
         default_storage.delete(name)
