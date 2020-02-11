@@ -200,7 +200,7 @@ class StorageBucket:
     def delete_given_file(name):
         """
         static delete
-        deletes the file from the google storage  
+        deletes the file from the google storage
         :param name: Name of the file
         :return: None
         """
