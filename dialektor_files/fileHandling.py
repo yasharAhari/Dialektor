@@ -1,6 +1,8 @@
 from Cryptodome.Cipher import AES
 from Cryptodome.Hash import SHA256
-
+import hashlib
+from dialektor.models import metadata
+from django.core.files.storage import default_storage
 
 class DialektFileSecurity:
     """
@@ -105,8 +107,70 @@ class DialektFileSecurity:
         """
         Calculates the SHA256 of the input
         :param input_binary: The data to be hashed
-        :return: calculated hash of the data
+        :return: calculated hash of the data in bytes
         """
         hash_f = SHA256.new()
         hash_f.update(input_binary)
         return hash_f.digest()
+
+    @staticmethod
+    def hash_sha256_str(input_binary):
+        """
+        Calculates a sha256 hash of the input and returns an string
+        :param input_binary: the data to be hashed
+        :return: hash string
+        """
+        hash_item = hashlib.sha3_256(input_binary)
+        return str(hash_item.hexdigest())
+
+
+class StorageBucket:
+    """
+    Storage bucket deals with reading and writing Dialektor files to and form storage
+    """
+    def __init__(self, meta_data: metadata, file=None):
+        self.__metadata = meta_data
+        self.file_id = self.__metadata.fileID
+        self.file_password = DialektFileSecurity.hash_sha256(bytes(self.__metadata.user_id +
+                                                                   str(self.__metadata.rec_length) +
+                                                                   str(self.__metadata.date_created), 'utf-8'))
+        self.file = file
+
+    def s_write_file_to_bucket(self):
+        if self.file is None:
+            raise ValueError("No File specified")
+        with DialektFileSecurity(self.file_password) as cipher:
+            cipher.file = self.file
+            cipher.encrypt_file()
+            file_writer = default_storage.open(self.file_id, 'w')
+            file_writer.write(cipher.encrypted_data)
+            file_writer.close()
+
+    def s_read_file_from_bucket(self):
+        with DialektFileSecurity(self.file_password) as cipher:
+            file_reader = default_storage.open(self.file_id, 'r')
+            encrypted_file = file_reader.read()
+            file_reader.close()
+            cipher.encrypted_data = encrypted_file
+            cipher.decrypt_file()
+            self.file = cipher.file
+
+    def delete_file(self):
+        default_storage.delete(self.file_id)
+
+    @staticmethod
+    def write_file_to_storage(name, file):
+        file_writer = default_storage.open(name, 'w')
+        file_writer.write(file)
+        file_writer.close()
+
+    @staticmethod
+    def read_file_from_storage(name):
+        file_reader = default_storage.open(name, 'r')
+        file = file_reader.read()
+        file_reader.close()
+        return file
+
+    @staticmethod
+    def delete_given_file(name):
+        default_storage.delete(name)
