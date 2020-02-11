@@ -140,4 +140,4 @@ DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_BUCKET_NAME = 'dialekt_storage'
 GS_PROJECT_ID = '240407835645'
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    "./GS_Credentials/dialekt-21418024ba66.json")
+    "./dialektor/GS_Credentials/dialekt-21418024ba66.json")
