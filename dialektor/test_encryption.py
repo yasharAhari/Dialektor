@@ -6,7 +6,6 @@ class EncryptionTest(TestCase):
         pass
 
     def test_file_encryption_decryption(self):
-        print("Testing encryption...")
         file = b"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fringilla, quam nec venenatis " \
                b"malesuada, nulla elit aliquam sapien, et maximus ex velit sit amet urna. Integer vitae eros a ex " \
                b"condimentum fermentum sit amet id leo. Cras purus quam, tempor vel nisi ut, ullamcorper luctus quam. " \

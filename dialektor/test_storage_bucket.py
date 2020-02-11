@@ -35,3 +35,11 @@ class BucketTest(TestCase):
         file_rcv = storage_bucket2.file
 
         self.assertEqual(self.file, file_rcv, "The file properly saved in Storage")
+
+    def test_storage_read_write(self):
+        name = "TestFile2.file"
+        StorageBucket.write_file_to_storage(name, self.file)
+        file_rcv = StorageBucket.read_file_from_storage(name)
+
+        self.assertEqual(self.file, file_rcv)
+
