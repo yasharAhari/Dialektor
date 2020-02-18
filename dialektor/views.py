@@ -6,6 +6,7 @@ from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
 from .models import CustomUser, metadata
+from dialektor_files.fileHandling import DialektFileSecurity, StorageBucket
 import hashlib
 
 def login_user(request, second=None):
@@ -28,7 +29,8 @@ def create_user(request):
     instCity = request.POST['institution_city']
     instState = request.POST['institution_state']
     instCountry = request.POST['institution_country']
-    CustomUser.objects.create_user(username, email, password, first_name=firstName, last_name=lastName, inst_name=instName, inst_addr=instAddr, inst_city=instCity, inst_state=instState, inst_country=instCountry)
+    id = hashlib.md5(str.encode(username+email))
+    CustomUser.objects.create_user(username, email, password, first_name=firstName, last_name=lastName, inst_name=instName, inst_addr=instAddr, inst_city=instCity, inst_state=instState, inst_country=instCountry, user_id=id.hexdigest())
     loginInfo = authenticate(username=username, password=password)
     login(request, loginInfo)
     return redirect('/')
@@ -36,15 +38,25 @@ def create_user(request):
 
 def upload(request):
     print(request.POST)
+    print(request.FILES)
     title = request.POST.get('title', 'none')
     collection = request.POST.get('collection', 'none')
     category = request.POST.get('category', 'none')
     tags = request.POST.get('tags', 'none')
     length = request.POST.get('length', 'none')
-    user = request.user.username
+    user = request.user.user_id
     fileID = hash_object = hashlib.md5(str.encode(title+user+collection)).hexdigest()
     file = metadata(user_id=user, title=title,  rec_length=length, collection=collection, category=category, tags=tags, fileID=fileID)
     file.save()
+    meta_obj = metadata.objects.get(fileID=fileID)
+    storage_bucket = StorageBucket(meta_obj)
+    storage_bucket.file = request.FILES['blob'].read()
+    storage_bucket.s_write_file_to_bucket()
+    del storage_bucket
+    storage_bucket2 = StorageBucket(meta_obj)
+    storage_bucket2.s_read_file_from_bucket()
+    file_rcv = storage_bucket2.file
+    print(file_rcv)
     return redirect('/')
 
 def signup(request):

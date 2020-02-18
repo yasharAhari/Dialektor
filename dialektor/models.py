@@ -8,6 +8,7 @@ class CustomUser(AbstractUser):
     inst_city = models.CharField(max_length=100)
     inst_state = models.CharField(max_length=100)
     inst_country = models.CharField(max_length=100)
+    user_id = models.CharField(max_length=100, primary_key=True, default="noID")
 
     def __str__(self):
         return self.username
@@ -19,7 +20,7 @@ class metadata(models.Model):
     tags = models.CharField(max_length=200, default='defaultTags')
     category = models.CharField(max_length=100, default='defaultCategory') #I think we also are going to want a file ID as well (hash of length+collection+tags)
     title = models.CharField(max_length=300, default='defaultTitle')
-    fileID = models.CharField(max_length=100, default='defaultID')
+    fileID = models.CharField(max_length=100, default='defaultID', primary_key=True)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     nonce = models.CharField(max_length=100, default='defaultNonce')
    
@@ -30,6 +31,6 @@ class metadata(models.Model):
 class collection(models.Model):
     name = models.CharField(max_length=200, default='defaultName')
     owner = models.CharField(max_length=100, default='defaultUser')
-    pic_id = models.CharField(max_length=100, default='defaultPic')
+    pic_id = models.CharField(max_length=100, default='defaultPic', primary_key=True)
 
     
