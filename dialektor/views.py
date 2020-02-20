@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from google.cloud import datastore
 from django.contrib.auth.hashers import make_password
@@ -21,7 +21,14 @@ def index_home(request, second=None):
 def render_sound(request, sound_id):
     sound = metadata.objects.get(fileID=sound_id)
     print("made it here")
-    return render(request, 'sound.html', {'sound': sound})
+    return render(request, 'sound.html', {'sound': sound_id})
+
+def get_sound(request, sound_id):
+    meta_obj = metadata.objects.get(fileID=sound_id)
+    storage = StorageBucket(meta_obj)
+    storage.s_read_file_from_bucket()
+    file_rcv = storage.file
+    return HttpResponse(file_rcv, content_type='application/force-download')
 
 def create_user(request):
     print(request.POST)

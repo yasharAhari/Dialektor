@@ -17,14 +17,15 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
 from django.views.generic.base import TemplateView 
-from dialektor.views import index_home, signup, create_user, login, signup, upload, render_sound
+import dialektor.views as views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
-    path('signup/', signup),
-    path('signup/create_user', create_user),
-    path('upload', upload),
-    path('sounds/<str:sound_id>/', render_sound, name='render_sound')
+    path('signup/', views.signup),
+    path('signup/create_user', views.create_user),
+    path('upload', views.upload),
+    path('sounds/<str:sound_id>/', views.render_sound, name='render_sound'),
+    path('raw/<str:sound_id>/', views.get_sound, name="get_sound")
 ]

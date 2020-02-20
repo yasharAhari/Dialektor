@@ -12,8 +12,10 @@
 
 <div id="content">
   <div class="sound-detail">
-    <p id="sound-id">{{sound_id}}</p>
-    <p>{{sound.fileID}}</p>
+    <p id="sound-id">{{sound}}</p>
+    <audio controls="controls">
+        <source src="http://127.0.0.1:8000/raw/{{ sound }}">
+    </audio>
   </div>
 </div>
 
