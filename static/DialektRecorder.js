@@ -188,7 +188,11 @@ function button_press(user_request) {
             contentType: false,
             processData: false,
         }).done(function(data) {
-            console.log(data);
+            var newDoc = document.open("text/html", "replace");
+            newDoc.write(data);
+            newDoc.close();
+            history.pushState('data', '', 'http://127.0.0.1:8000/sound/placeholder')
+            //$('html').html(data);
         });
     }
     else if(user_request === user_requests.DISCARD)

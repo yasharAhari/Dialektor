@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="static/style.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+<script src="static/script.js"></script>
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+<div class="container">
+    <div id="logo">dialektor</div>
+    <div id="profile">{{user.username}}</div>
+</div>
+
+<div id="content">
+  <div class="sound-detail">
+    <p id="sound-id">{{sound_id}}</p>
+    <p>{{sound.fileID}}</p>
+  </div>
+</div>
+
+{% if user.is_authenticated %}
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+  <br>
+  <a href="/signup">signup</a>
+{% endif %}
+{% endblock %}

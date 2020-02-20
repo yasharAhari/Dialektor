@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404, reverse
 from google.cloud import datastore
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
@@ -17,6 +18,11 @@ def login_user(request, second=None):
 def index_home(request, second=None):
     return render(request, 'home.html')
 
+def render_sound(request, sound_id):
+    sound = metadata.objects.get(fileID=sound_id)
+    print("made it here")
+    return render(request, 'sound.html', {'sound': sound})
+
 def create_user(request):
     print(request.POST)
     email = request.POST['email']
@@ -34,6 +40,7 @@ def create_user(request):
     loginInfo = authenticate(username=username, password=password)
     login(request, loginInfo)
     return redirect('/')
+
 
 
 def upload(request):
@@ -57,7 +64,7 @@ def upload(request):
     storage_bucket2.s_read_file_from_bucket()
     file_rcv = storage_bucket2.file
     print(file_rcv)
-    return redirect('/')
+    return HttpResponseRedirect(reverse('render_sound', kwargs={'sound_id': fileID}))
 
 def signup(request):
     # renders the signup form
