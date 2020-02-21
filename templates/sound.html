@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="static/style.css">
+<link rel="stylesheet" type="text/css" href="/static/style.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
-<script src="static/script.js"></script>
+<script src="/static/script.js" type="application/javascript"></script>
     <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
 <div class="container">
     <div id="logo">dialektor</div>
@@ -12,12 +12,16 @@
 
 <div id="content">
   <div class="sound-detail">
-    <p id="sound-id">{{sound}}</p>
-    <audio controls="controls">
+    <p id="sound-title">{{title}}</p>
+      <p id="sound-id">{{sound}}</p>
+  </div>
+  <div id="playback">
+      <audio>
         <source src="http://127.0.0.1:8000/raw/{{ sound }}">
     </audio>
   </div>
 </div>
+
 
 {% if user.is_authenticated %}
 {% else %}

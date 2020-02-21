@@ -241,3 +241,8 @@ input[type=submit]
 {
   display: none;
 }
+
+#sound-id
+{
+  display: hidden;
+}

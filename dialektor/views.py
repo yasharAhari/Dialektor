@@ -20,8 +20,8 @@ def index_home(request, second=None):
 
 def render_sound(request, sound_id):
     sound = metadata.objects.get(fileID=sound_id)
-    print("made it here")
-    return render(request, 'sound.html', {'sound': sound_id})
+    print(sound.title)
+    return render(request, 'sound.html', {'sound': sound_id, 'title': sound.title})
 
 def get_sound(request, sound_id):
     meta_obj = metadata.objects.get(fileID=sound_id)
@@ -70,7 +70,6 @@ def upload(request):
     storage_bucket2 = StorageBucket(meta_obj)
     storage_bucket2.s_read_file_from_bucket()
     file_rcv = storage_bucket2.file
-    print(file_rcv)
     return HttpResponseRedirect(reverse('render_sound', kwargs={'sound_id': fileID}))
 
 def signup(request):

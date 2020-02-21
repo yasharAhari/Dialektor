@@ -188,10 +188,12 @@ function button_press(user_request) {
             contentType: false,
             processData: false,
         }).done(function(data) {
-            var newDoc = document.open("text/html", "replace");
-            newDoc.write(data);
-            newDoc.close();
-            history.pushState('data', '', 'http://127.0.0.1:8000/sound/placeholder')
+            //var newDoc = document.open("text/html", "replace");
+            //newDoc.write(data);
+            //newDoc.close();
+            $("html").html(data);
+            console.log($("#sound-id").html())
+            history.pushState('data', '', 'http://127.0.0.1:8000/sounds/' + $("#sound-id").html() + "/")
             //$('html').html(data);
         });
     }
