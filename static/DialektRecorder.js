@@ -200,6 +200,7 @@ function button_press(user_request) {
     else if(user_request === user_requests.DISCARD)
     {
         // Total reset is required!
+        recordedAudio.pause();
         context_time = 0;
         timer_text.innerText = "00:00";
         recorder.reset();
