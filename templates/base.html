@@ -1,18 +1,19 @@
 <!-- templates/base.html -->
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <title>{% block title %}Auth testing{% endblock %}</title>
-  <link rel="stylesheet" type="text/css" href="static/style.css">
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="static/script.js"></script>
+  <script src="/static/script.js"></script>
 </head>
 <body>
   <header>
     <div class="container">
-        <div id="logo">dialektor</div>
-        <div id="profile">{{user.username}}</div>
+        <div id="logo"><a href="/">dialektor</a></div>
+        <div id="profile"><a href="/profile/">{{user.username}}</a></div>
     </div>
   </header>
   <main>

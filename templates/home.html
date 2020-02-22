@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
+{% if user.is_authenticated %}
     <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
 <div id="content">
   <div id="options">
@@ -34,7 +35,7 @@
 </div>
     <!-- This script needs to be after everything -->
     <script src="static/DialektRecorder.js"></script>
-{% if user.is_authenticated %}
+
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">login</a>

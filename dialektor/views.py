@@ -75,3 +75,7 @@ def upload(request):
 def signup(request):
     # renders the signup form
     return render(request, 'signup.html')
+
+def profile(request):
+    # Renders the profile page 
+    return render(request, 'profile.html')
