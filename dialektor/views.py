@@ -86,7 +86,11 @@ def profile(request):
     meta_objs = metadata.objects.filter(user_id=userId)
     records = {}
     for obj in meta_objs:
-        records[obj.fileID] = obj.title
+        data = {
+            'title': obj.title,
+            'date': obj.date_created
+        }
+        records[obj.fileID] = data
     print(records)
 
     content = {
