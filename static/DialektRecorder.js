@@ -148,7 +148,8 @@ function button_press(user_request) {
     }
     else if(user_request === user_requests.SAVE)
     {
-        // TODO: temporary placeholder functionality until the backend is available!!
+        // first stop the playing song if it is still playing
+        recordedAudio.pause();
         // Save the blob to the machine.
         //invokeSaveAsDialog(recorder.getBlob());
         var newData = new FormData();
