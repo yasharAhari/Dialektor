@@ -24,12 +24,18 @@
         <h2>Recent Sounds</h2>
         <!-- The django for loops to generate all of the sounds will go inside this div -->
         <div class="flex-container flex-direction-horizontal" id="recent-sounds">
-            <img class="grid-item" src="img/2.jpg" alt="Smiley face">
-            <img class="grid-item" src="img/1.png" alt="Smiley face">
-            <img class="grid-item" src="img/smiley.gif" alt="Smiley face">
-            <img class="grid-item" src="img/3.jpg" alt="Smiley face">
-            <img class="grid-item" alt="" src="img/face-50x50.png">
-            <img class="grid-item" src="img/4.png" alt="Smiley face">
+            {% for record_id, title in user_records.items %}
+              <div class="grid-item">
+                <p><center>{{title}}</center></p>
+                <center>
+                <audio controls="controls" >
+                  Your browser does not support the &lt;audio&gt; tag.
+                  <source src="/raw/{{record_id}}" />
+                </audio>
+                </center>
+              </div>
+            {% endfor %}
+
         </div>
         <br>
         <h2>My Collections</h2>

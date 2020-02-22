@@ -80,7 +80,17 @@ def profile(request):
     # Renders the profile page
     # TODO: get real profile pic name after it gets implemented
 
+    # Get list of all user recordings
+    ## TODO: only list latest 10 recordings
+    userId = request.user.user_id
+    meta_objs = metadata.objects.filter(user_id=userId)
+    records = {}
+    for obj in meta_objs:
+        records[obj.fileID] = obj.title
+    print(records)
+
     content = {
     'profile_pic': '/static/defaultprofile1.png',
+    'user_records' : records
     }
     return render(request, 'profile.html',content)

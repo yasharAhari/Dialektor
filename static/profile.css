@@ -8,12 +8,12 @@ html, body {
 
 .grid-item {
   border-radius:15%;
-  height: 7vw;
-  width: 10vw;
+  height: 15vw;
+  width: 30vw;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
   margin: 5px;
   cursor: pointer;
-  
+
 }
 .grid-item:hover {
   scale: 1.1;
@@ -33,7 +33,7 @@ html, body {
 
 /* Can possibly delete this, makes user card larger */
 #userinfo-flexcontainer img{
-    
+
   /* width: 12vw;
   height: 18vh; */
   align-self: center;
@@ -44,15 +44,15 @@ html, body {
 }
 #collections {
   flex-wrap: wrap;
-  
+
 }
 #tags {
   flex-wrap: wrap;
-  
+
 }
 #categories {
   flex-wrap: wrap;
-  
+
 }
 /* User card */
 .card {
@@ -63,12 +63,12 @@ html, body {
     margin: auto;
     text-align: center;
   }
-  /* Space between the logo and profile name to avoid the user info 
+  /* Space between the logo and profile name to avoid the user info
   floating upward */
   #spacer1 {
     height: 74px;
   }
-  
+
   #category-image {
       height: 25vw;
       width: 30vw;
@@ -85,8 +85,8 @@ html, body {
       width: 18vw;
     }
   }
-  
-  
+
+
  /* Zachs stuff */
   #profile
 {
@@ -132,5 +132,3 @@ html, body {
   align-items: center;
   flex-direction: column;
 }
-
-  
