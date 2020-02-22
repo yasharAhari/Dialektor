@@ -77,5 +77,10 @@ def signup(request):
     return render(request, 'signup.html')
 
 def profile(request):
-    # Renders the profile page 
-    return render(request, 'profile.html')
+    # Renders the profile page
+    # TODO: get real profile pic name after it gets implemented
+
+    content = {
+    'profile_pic': '/static/defaultprofile1.png',
+    }
+    return render(request, 'profile.html',content)
