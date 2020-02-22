@@ -1,14 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
-<link rel="stylesheet" type="text/css" href="static/style.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
-<script src="static/script.js"></script>
     <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
-<div class="container">
-    <div id="logo">dialektor</div>
-    <div id="profile">{{user.username}}</div>
-</div>
 <div id="content">
   <div id="options">
     <div id="smallRec"></div>
@@ -20,14 +13,14 @@
     <div id="stop"></div>
     <div id="start"></div>
   </div>
-  <p id="time">0:00</p>  
+  <p id="time">0:00</p>
   <div id="bar">
     <div id="progress"></div>
   </div>
 <div>
 <div id="data">
   <form action="/upload" method="post"> {% csrf_token %}
-    <input type="text" name="length" id="length" /> 
+    <input type="text" name="length" id="length" />
     <input type="text" name="title" id="title" placeholder="Title" />
     <br>
     <input type="text" name="collection" id="collection" placeholder="Collection" />
