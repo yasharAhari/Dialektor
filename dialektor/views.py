@@ -78,7 +78,7 @@ def signup(request):
 
 def profile(request):
     # Renders the profile page
-    # TODO: get real profile pic name after it gets implemented
+
 
     # Get list of all user recordings
     ## TODO: only list latest 10 recordings
@@ -88,12 +88,15 @@ def profile(request):
     for obj in meta_objs:
         data = {
             'title': obj.title,
-            'date': obj.date_created
+            'date': obj.date_created,
+            'collection' : obj.collection,
+            'tags' : obj.tags,
         }
         records[obj.fileID] = data
     print(records)
 
     content = {
+    # TODO: get real profile pic name after it gets implemented
     'profile_pic': '/static/defaultprofile1.png',
     'user_records' : records
     }

@@ -23,7 +23,7 @@ class metadata(models.Model):
     fileID = models.CharField(max_length=100, default='defaultID', primary_key=True)
     date_created = models.DateTimeField(auto_now_add=True, blank=True)
     nonce = models.CharField(max_length=100, default='defaultNonce')
-   
+
     def __str__(self):
         return self.fileID
 
@@ -32,5 +32,3 @@ class collection(models.Model):
     name = models.CharField(max_length=200, default='defaultName')
     owner = models.CharField(max_length=100, default='defaultUser')
     pic_id = models.CharField(max_length=100, default='defaultPic', primary_key=True)
-
-    

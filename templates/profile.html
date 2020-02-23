@@ -26,8 +26,10 @@
         <div class="flex-container flex-direction-horizontal" id="recent-sounds">
             {% for record_id, data in user_records.items %}
               <a href="/sounds/{{record_id}}"><div class="grid-item">
-                <p><center>{{data.title}}</center></p>
+                <h3><center>{{data.title}}</center></h3>
                 <p><center>{{data.date}}</center></p>
+                <p><center>collection: {{data.collection}}</center></p>
+                <p><center><i>Tags:</i>#{{data.tags}}</center></p>
                 <center>
                 <audio controls="controls" >
                   Your browser does not support the &lt;audio&gt; tag.
