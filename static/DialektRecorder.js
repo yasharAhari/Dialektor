@@ -138,7 +138,7 @@ function button_press(user_request) {
     {
         recordedAudio.play();
         // time interval is much shorter because of progress bar
-        timer = window.setInterval(playback_tick,250);
+        timer = window.setInterval(function(){playback_tick(recordedAudio)},250);
 
     }
     else if(user_request === user_requests.PAUSE_RECORDED)
@@ -232,9 +232,9 @@ function record_tick()
 /**
  * This is like recording_tick but for when playing back the recorded piece.
  */
-function playback_tick() {
+function playback_tick(audioSource) {
     // set the timing stuff
-    let current_time = recordedAudio.currentTime;
+    let current_time = audioSource.currentTime;
     let total_time = context_time;
     timer_text.innerText = get_minute_second(current_time) + "/" + get_minute_second(total_time);
 
@@ -281,16 +281,21 @@ function set_up_player()
     var playbacker = document.createElement("AUDIO");
 
     playbacker.src = "http://127.0.0.1:8000/raw/" + $("#sound-id").html()
-
+    $("#playback").append(playbacker);
+    $("#bar").show();
+    $("#progress").show()
     $("#start").click(function(){
         $("#start").hide();
         $("#pause").show();
-        playbacker.paused = false;
+        playbacker.play();
+        timer = window.setInterval(function(){playback_tick(playbacker)},250);
     });
     $("#pause").click(function(){
         $("#pause").hide();
         $("#start").show();
-        playbacker.paused = true;
+
+        playbacker.pause();
+        window.clearInterval(timer);
     });
 
 }
