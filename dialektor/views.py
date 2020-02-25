@@ -5,23 +5,27 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-from django.contrib.auth import authenticate, login
-from .models import CustomUser, metadata
+from django.contrib.auth import authenticate, login, update_session_auth_hash
+from .models import CustomUser, metadata, collection
 from dialektor_files.fileHandling import DialektFileSecurity, StorageBucket
 import hashlib
+
 
 def login_user(request, second=None):
     # main entry page (aka. login page)
     # The "second" argument is not used here, however, it is needed for the group regex call on urls
     return render(request, 'login.html')
 
+
 def index_home(request, second=None):
     return render(request, 'home.html')
+
 
 def render_sound(request, sound_id):
     sound = metadata.objects.get(fileID=sound_id)
     print(sound.title)
     return render(request, 'sound.html', {'sound': sound_id, 'title': sound.title})
+
 
 def get_sound(request, sound_id):
     meta_obj = metadata.objects.get(fileID=sound_id)
@@ -29,6 +33,7 @@ def get_sound(request, sound_id):
     storage.s_read_file_from_bucket()
     file_rcv = storage.file
     return HttpResponse(file_rcv, content_type='application/force-download')
+
 
 def create_user(request):
     print(request.POST)
@@ -47,7 +52,6 @@ def create_user(request):
     loginInfo = authenticate(username=username, password=password)
     login(request, loginInfo)
     return redirect('/')
-
 
 
 def upload(request):
@@ -72,13 +76,14 @@ def upload(request):
     file_rcv = storage_bucket2.file
     return HttpResponseRedirect(reverse('render_sound', kwargs={'sound_id': fileID}))
 
+
 def signup(request):
     # renders the signup form
     return render(request, 'signup.html')
 
+
 def profile(request):
     # Renders the profile page
-
 
     # Get list of all user recordings
     ## TODO: only list latest 10 recordings
@@ -86,27 +91,35 @@ def profile(request):
     meta_objs = metadata.objects.filter(user_id=userId)
     records = {}
     for obj in meta_objs:
+
         data = {
             'title': obj.title,
             'date': obj.date_created,
-            'collection' : obj.collection,
-            'tags' : obj.tags,
+            'collection': obj.collection,
+            'tags': obj.tags,
         }
         records[obj.fileID] = data
 
+    # get user collections
+
+    #collectionList = collection.objects.
+    #collections = {}
+
     content = {
-    # TODO: get real profile pic name after it gets implemented
-    'profile_pic': '/static/defaultprofile1.png',
-    'user_records' : records
+        # TODO: get real profile pic name after it gets implemented
+        'profile_pic': '/static/defaultprofile1.png',
+        'user_records': records
     }
-    return render(request, 'profile.html',content)
+    return render(request, 'profile/profile.html', content)
+
 
 def profile_update(request):
     if request.method == 'POST':
-        user = CustomUser.objects.get(username = request.user.username)
-        user.first_name = request.POST.get('first_name','none')
-        user.last_name = request.POST.get('last_name','none')
+        user = CustomUser.objects.get(username=request.user.username)
+        user.first_name = request.POST.get('first_name', 'none')
+        user.last_name = request.POST.get('last_name', 'none')
         user.save()
+
         return HttpResponseRedirect('/profile')
 
     else:    
@@ -114,4 +127,29 @@ def profile_update(request):
             # TODO: get real profile pic name after it gets implemented
             'profile_pic': '/static/defaultprofile1.png',
         }
-        return render(request, "editUserProfile.html",content)
+        return render(request, "profile/editUserProfile.html", content)
+
+
+def change_pass(request):
+    message = ""
+    if request.method == 'POST':
+        user = CustomUser.objects.get(username=request.user.username)
+        entered_pass = request.POST.get('password', False)
+        new_pass = request.POST.get('new_password', False)
+        if entered_pass is not False:
+            # check for current password
+            if user.check_password(entered_pass):
+                return render(request, 'profile/changePass.html')
+            else:
+                message = "Password is not correct!"
+                return render(request, 'profile/providePass.html', {'message': message})
+        else:
+            # Change pass word
+
+            user.set_password(new_pass)
+            user.save()
+            update_session_auth_hash(request, request.user)
+            pass
+    else:
+        return render(request, 'profile/providePass.html', {'message': message})
+    pass

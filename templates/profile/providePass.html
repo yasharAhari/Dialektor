@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title%}Change Password{% endblock%}
+{% block content %}
+{% if user.is_authenticated %}
+    <link rel="stylesheet" type="text/css" href="/static/profile.css">
+    <div>
+        <div class="flex-container flex-direction-horizontal" id="userinfo-flexcontainer">
+            <div class="card">
+                <p>Please enter your current password to continue</p>
+                <p>{{ message }}</p>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input name="password" type="password" required>
+                    <input type="submit">
+                    <a href="/profile"><button type="button">Cancel</button></a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% else %}
+    {% include 'templates\registration\YouAreNotLoggedIn.html' %}
+{% endif %}
+{% endblock content %}
