@@ -195,6 +195,7 @@ function button_press(user_request) {
             $("html").html(data);
             console.log($("#sound-id").html())
             history.pushState('data', '', 'http://127.0.0.1:8000/sounds/' + $("#sound-id").html() + "/")
+            set_up_player()
             //$('html').html(data);
         });
     }
@@ -272,4 +273,24 @@ function get_minute_second(seconds) {
     let f_minute = ('0' + minute).slice(-2);
     let f_second = ('0' + second).slice(-2);
     return f_minute + ':' + f_second;
+}
+
+function set_up_player()
+{
+    $("#start").show()
+    var playbacker = document.createElement("AUDIO");
+
+    playbacker.src = "http://127.0.0.1:8000/raw/" + $("#sound-id").html()
+
+    $("#start").click(function(){
+        $("#start").hide();
+        $("#pause").show();
+        playbacker.paused = false;
+    });
+    $("#pause").click(function(){
+        $("#pause").hide();
+        $("#start").show();
+        playbacker.paused = true;
+    });
+
 }
