@@ -29,4 +29,5 @@ urlpatterns = [
     path('sounds/<str:sound_id>/', views.render_sound, name='render_sound'),
     path('raw/<str:sound_id>/', views.get_sound, name="get_sound"),
     path('profile/',views.profile, name="profile"),
+    path('userUpdateProfile/', views.profile_update, name="profile_update"),
 ]

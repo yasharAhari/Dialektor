@@ -93,7 +93,6 @@ def profile(request):
             'tags' : obj.tags,
         }
         records[obj.fileID] = data
-    print(records)
 
     content = {
     # TODO: get real profile pic name after it gets implemented
@@ -101,3 +100,18 @@ def profile(request):
     'user_records' : records
     }
     return render(request, 'profile.html',content)
+
+def profile_update(request):
+    if request.method == 'POST':
+        user = CustomUser.objects.get(username = request.user.username)
+        user.first_name = request.POST.get('first_name','none')
+        user.last_name = request.POST.get('last_name','none')
+        user.save()
+        return HttpResponseRedirect('/profile')
+
+    else:    
+        content = {
+            # TODO: get real profile pic name after it gets implemented
+            'profile_pic': '/static/defaultprofile1.png',
+        }
+        return render(request, "editUserProfile.html",content)

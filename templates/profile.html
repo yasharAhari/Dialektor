@@ -15,6 +15,7 @@
                     <p>{{user.first_name}} {{user.last_name}}</p>
                     <p class="Account type">{{user.email}}</p>
                     <p>personal account</p>
+                    <a href="/userUpdateProfile"><button type="button">Edit Profile</button><a>
                 </div>
 
             </div>
@@ -81,9 +82,6 @@
               <img class="grid-item" src="img/smiley.gif" alt="Smiley face" height="75" width="100">
         </div>
 {% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
-  <br>
-  <a href="/signup">signup</a>
+  {% include "/templates/registration/YouAreNotLoggedIn.html" %}
 {% endif %}
 {% endblock %}
