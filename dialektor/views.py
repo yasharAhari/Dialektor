@@ -20,8 +20,9 @@ def index_home(request, second=None):
 
 def render_sound(request, sound_id):
     sound = metadata.objects.get(fileID=sound_id)
+    user = CustomUser.objects.get(user_id=sound.user_id)
     print(sound.title)
-    return render(request, 'sound.html', {'sound': sound_id, 'title': sound.title})
+    return render(request, 'sound.html', {'sound': sound_id, 'title': sound.title, 'author': user.username})
 
 def get_sound(request, sound_id):
     meta_obj = metadata.objects.get(fileID=sound_id)

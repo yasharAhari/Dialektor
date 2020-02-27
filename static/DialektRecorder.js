@@ -35,8 +35,8 @@ let recorder;
 let recordedAudio;
 
 // other html elements
-const timer_text = document.getElementById("time");     // the timer
-const progress = document.getElementById("progress");   // progress bar
+timer_text = document.getElementById("time");     // the timer
+progress = document.getElementById("progress");   // progress bar
 
 recorder_initial_load();
 
@@ -234,6 +234,8 @@ function record_tick()
  */
 function playback_tick(audioSource) {
     // set the timing stuff
+    timer_text = document.getElementById("time");     // the timer
+    progress = document.getElementById("progress");   // progress bar
     let current_time = audioSource.currentTime;
     let total_time = context_time;
     timer_text.innerText = get_minute_second(current_time) + "/" + get_minute_second(total_time);
@@ -277,13 +279,15 @@ function get_minute_second(seconds) {
 
 function set_up_player()
 {
-    $("#start").show()
     var playbacker = document.createElement("AUDIO");
 
     playbacker.src = "http://127.0.0.1:8000/raw/" + $("#sound-id").html()
     $("#playback").append(playbacker);
+    sleep(200);
     $("#bar").show();
-    $("#progress").show()
+    $("#progress").show();
+    $("#start").show();
+    $("#start").show();
     $("#start").click(function(){
         $("#start").hide();
         $("#pause").show();
@@ -298,4 +302,8 @@ function set_up_player()
         window.clearInterval(timer);
     });
 
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }

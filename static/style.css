@@ -260,5 +260,17 @@ input[type=submit]
 
 #sound-id
 {
-  display: hidden;
+  display: none;
+}
+
+#sound-title
+{
+  font-family: 'Cabin', sans-serif;
+  font-size: 3.0vh;
+}
+
+#author
+{
+  font-family: 'Cabin', sans-serif;
+  font-size: 3.0vh;
 }
