@@ -18,6 +18,11 @@ html, body
   display: inline-block;
   float: right;
 }
+/*removes styling for links of #profile */
+#profile  a{
+  text-decoration: none;
+  color: white;
+}
 
 #logo
 {
@@ -30,6 +35,11 @@ html, body
   text-align: center;
   display: inline-block;
   float: left;
+}
+/*removes styling for links of #logo */
+#logo  a{
+  text-decoration: none;
+  color: white;
 }
 
 #profile:hover

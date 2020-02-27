@@ -1,6 +1,7 @@
 <!-- templates/base.html -->
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>{% block title %}Auth testing{% endblock %}</title>
@@ -8,11 +9,16 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="static/script.js"></script>
 </head>
+
 <body>
   <header>
     <div class="container">
-        <div id="logo">dialektor</div>
-        <div id="profile">{{user.username}}</div>
+      <div id="logo"><a href="/">dialektor</a></div>
+      {% if user.username %}
+      <div id="profile">{{user.username}}</div>
+      {% else %}
+      <div id="profile"><a href="/accounts/login">Log in!</a></div>
+      {% endif %}
     </div>
   </header>
   <main>
@@ -20,4 +26,5 @@
     {% endblock %}
   </main>
 </body>
+
 </html>
