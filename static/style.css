@@ -6,6 +6,12 @@ html, body
   padding:0;
 }
 
+.login_container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #profile
 {
   font-family: 'Cabin', sans-serif;

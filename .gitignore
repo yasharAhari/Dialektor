@@ -74,6 +74,8 @@ app.yaml
 
 *.pyc
 
+#__pycache__
+Dialektor_/__pycache__/*
 
 # Google cloud access file
 dialekt-21418024ba66.json
