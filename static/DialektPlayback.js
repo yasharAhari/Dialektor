@@ -82,7 +82,7 @@ function playback_tick(audioSource) {
     {
         // play finished, cleanup
         window.clearInterval(timer);
-        $("#playPause").hide();
+        $("#pause").hide();
         $("#start").show();
     }
 }
