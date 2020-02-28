@@ -71,8 +71,8 @@ def upload(request):
     storage_bucket2 = StorageBucket(meta_obj)
     storage_bucket2.s_read_file_from_bucket()
     file_rcv = storage_bucket2.file
-    return HttpResponseRedirect(reverse('render_sound', kwargs={'sound_id': fileID}))
-
+    #return HttpResponseRedirect(reverse('render_sound', kwargs={'sound_id': fileID}))
+    return HttpResponse(fileID)
 def signup(request):
     # renders the signup form
     return render(request, 'signup.html')

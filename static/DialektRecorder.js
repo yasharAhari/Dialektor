@@ -189,14 +189,7 @@ function button_press(user_request) {
             contentType: false,
             processData: false,
         }).done(function(data) {
-            //var newDoc = document.open("text/html", "replace");
-            //newDoc.write(data);
-            //newDoc.close();
-            $("html").html(data);
-            console.log($("#sound-id").html())
-            history.pushState('data', '', 'http://127.0.0.1:8000/sounds/' + $("#sound-id").html() + "/")
-            set_up_player()
-            //$('html').html(data);
+            window.location.replace("http://127.0.0.1:8000/sounds/" + data)
         });
     }
     else if(user_request === user_requests.DISCARD)
