@@ -7,6 +7,7 @@ from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login
 from .models import CustomUser, metadata
+from .models import collection as Collection
 from dialektor_files.fileHandling import DialektFileSecurity, StorageBucket
 import hashlib
 
@@ -71,8 +72,20 @@ def upload(request):
     storage_bucket2 = StorageBucket(meta_obj)
     storage_bucket2.s_read_file_from_bucket()
     file_rcv = storage_bucket2.file
+    collections = Collection.objects.all().filter(user_id=user)
+    c = Collection(user_id=user, name=request.POST.get('collection', 'none'), pic_id=fileID)
+    c.save()
+    get_collections(request)
     #return HttpResponseRedirect(reverse('render_sound', kwargs={'sound_id': fileID}))
     return HttpResponse(fileID)
 def signup(request):
     # renders the signup form
     return render(request, 'signup.html')
+
+def get_collections(request):
+    collection_list = ""
+    user = request.user.user_id
+    collections = Collection.objects.all().filter(user_id=user)
+    for collection in collections:
+        collection_list += collection.name + ", "
+    print(collection_list)
