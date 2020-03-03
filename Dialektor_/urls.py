@@ -22,10 +22,11 @@ import dialektor.views as views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('', views.index_home, name='home'),
     path('signup/', views.signup),
     path('signup/create_user', views.create_user),
     path('upload', views.upload),
     path('sounds/<str:sound_id>/', views.render_sound, name='render_sound'),
-    path('raw/<str:sound_id>/', views.get_sound, name="get_sound")
+    path('raw/<str:sound_id>/', views.get_sound, name="get_sound"),
+    path('collections', views.get_collections, name="get_collections")
 ]

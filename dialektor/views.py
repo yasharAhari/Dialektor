@@ -17,7 +17,7 @@ def login_user(request, second=None):
     return render(request, 'login.html')
 
 def index_home(request, second=None):
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'user_id': request.user.user_id})
 
 def render_sound(request, sound_id):
     sound = metadata.objects.get(fileID=sound_id)
@@ -55,6 +55,7 @@ def create_user(request):
 def upload(request):
     print(request.POST)
     print(request.FILES)
+    print(request.user.user_id)
     title = request.POST.get('title', 'none')
     collection = request.POST.get('collection', 'none')
     category = request.POST.get('category', 'none')
@@ -75,7 +76,6 @@ def upload(request):
     collections = Collection.objects.all().filter(user_id=user)
     c = Collection(user_id=user, name=request.POST.get('collection', 'none'), pic_id=fileID)
     c.save()
-    get_collections(request)
     #return HttpResponseRedirect(reverse('render_sound', kwargs={'sound_id': fileID}))
     return HttpResponse(fileID)
 def signup(request):
@@ -88,4 +88,4 @@ def get_collections(request):
     collections = Collection.objects.all().filter(user_id=user)
     for collection in collections:
         collection_list += collection.name + ", "
-    print(collection_list)
+    return HttpResponse(collection_list)

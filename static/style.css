@@ -159,14 +159,49 @@ html, body
   color: #000;
 }
 
-#collection 
+#container,
+#collection,
+#autocomplete
 {
-  border: solid;
-  height: 3vh;
-  width: 40vw;
+    width:40vw;
+    height: 3vh;
+    line-height: 37px;
+    margin: 0 auto;
+}
+
+#container
+{
+    position: relative;
+
+}
+
+
+#collection,
+#autocomplete
+{
+  position: absolute;
+  top: 0;
+  right: 0;
   font-size: 3vh;
   font-family: 'Cabin', sans-serif;
-  color: #000;
+  cursor: text;
+  border:solid;
+  padding: 0 8px;
+  }
+
+#collection
+{
+  background-color: transparent;
+}
+
+#autocomplete
+{
+    color: #aa9f9f;
+}
+
+#collection:focus
+{
+  outline: none;
 }
 
 #category 
@@ -273,4 +308,9 @@ input[type=submit]
 {
   font-family: 'Cabin', sans-serif;
   font-size: 3.0vh;
+}
+
+#user-id
+{
+  display: none;
 }
