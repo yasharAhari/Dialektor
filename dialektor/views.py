@@ -17,6 +17,9 @@ def login_user(request, second=None):
     return render(request, 'login.html')
 
 def index_home(request, second=None):
+    print(request.user)
+    if request.user.is_anonymous:
+        return render(request, 'home.html')
     return render(request, 'home.html', {'user_id': request.user.user_id})
 
 def render_sound(request, sound_id):
