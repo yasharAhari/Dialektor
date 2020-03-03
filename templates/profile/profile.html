@@ -45,23 +45,13 @@
         <h2>My Collections</h2>
         <br>
         <!-- The django for loops to generate all of the collections will go inside this div, in a seperate div -->
+        {% for collection_name, data in user_collections.items %}
         <div class="flex-container flex-direction-horizontal" id="collections">
-            <img class="grid-item" src="img/1.png" alt="Smiley face">
-            <img class="grid-item" alt="" src="img/face-50x50.png">
-            <a href="collection.html"><img class="grid-item" src="img/canoe.jpg" alt="Smiley face"></a>
-            <img class="grid-item" src="img/3.jpg" alt="Smiley face">
-            <img class="grid-item" src="img/4.png" alt="Smiley face">
-            <img class="grid-item" src="img/smiley.gif" alt="Smiley face">
-            <img class="grid-item" src="img/1.png" alt="Smiley face">
-            <img class="grid-item" alt="" src="img/face-50x50.png">
-            <img class="grid-item" src="img/2.jpg" alt="Smiley face">
-            <img class="grid-item" src="img/3.jpg" alt="Smiley face">
-            <img class="grid-item" src="img/4.png" alt="Smiley face">
-            <img class="grid-item" src="img/smiley.gif" alt="Smiley face">
-
-
+            <div class="grid-item" style="background-image: url('{{ data.pic_id }}');">
+                <p>{{ collection_name }}</p>
+            </div>
         </div>
-
+        {% endfor %}
 
         <br>
         <h2>Tags</h2>

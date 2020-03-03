@@ -101,14 +101,21 @@ def profile(request):
         records[obj.fileID] = data
 
     # get user collections
+    '''
+    collection_list = collection.objects.filter(user_id=userId)
+    collections = {}
 
-    #collectionList = collection.objects.
-    #collections = {}
-
+    for obj in collection_list:
+        data = {
+            'picture': obj.pic_id
+        }
+        collections[obj.name] = data
+    '''
     content = {
         # TODO: get real profile pic name after it gets implemented
         'profile_pic': '/static/defaultprofile1.png',
-        'user_records': records
+        'user_records': records,
+        #'user_collections': collections
     }
     return render(request, 'profile/profile.html', content)
 
