@@ -130,13 +130,42 @@ $(document).ready(function(){
           name = '';
         }
       }
-
       if(find === true) {
         $('#autocomplete').text(name);
+        $("#add-collection").hide();
       } else {
+        $("#add-collection").show();
         $('#autocomplete').text('');
       }
     })
+    $('#collection').keyup(function(e) {
+      if($("#collection").val() == "")
+      {
+        console.log("empty");
+        $("#add-collection").hide();
+      }
+    });
 
-    
+
+    var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+               $('.profile-pic').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $("#image-upload").on('click', function(){
+        console.log("READING URL");
+        readURL(this);
+    });
+
+    $("#pic-box").on('click', function() {
+       $("#image-upload").click();
+    });
 });
