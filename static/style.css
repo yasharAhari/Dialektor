@@ -335,6 +335,7 @@ input[type=submit]
   border: solid;
   height: 10vw;
   width: 10vw;
+  display: none;
 }
 
 #image-upload

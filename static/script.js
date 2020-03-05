@@ -65,6 +65,7 @@ $(document).ready(function(){
     $("#start").show();
     $("#smallRec").hide();
     $("#data").show();
+    $("#pic-box").show();
     $("#bar").show();
     $("#progress").show();
     button_press(user_requests.STOP_RECORDING);
@@ -168,4 +169,15 @@ $(document).ready(function(){
     $("#pic-box").on('click', function() {
        $("#image-upload").click();
     });
+
+$('img').on('load', function(){
+    var css;
+    var ratio=$(this).width() / $(this).height();
+    var pratio=$(this).parent().width() / $(this).parent().height();
+    if (ratio<pratio) css={width:'auto', height:'100%'};
+    else css={width :'100%', height:'100%'};
+    console.log(ratio, pratio, css);
+    $(this).css(css);
+
+});
 });

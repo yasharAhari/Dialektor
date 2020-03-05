@@ -18,7 +18,7 @@
   <div id="bar">
     <div id="progress"></div>
   </div>
-<div>
+<div id="form-container">
   <div id="data">
     <form action="/upload" method="post"> {% csrf_token %}
       <input type="text" name="length" id="length" />
@@ -38,9 +38,9 @@
     </form>
   </div>
   <div id="pic-box">
-    <input type="file" id="image-upload" accept="image/*" />
-    <img class="profile-pic" src="http://cdn.cutestpaw.com/wp-content/uploads/2012/07/l-Wittle-puppy-yawning.jpg" />
+    <img class="profile-pic"/>
   </div>
+  <input type="file" id="image-upload" accept="image/*" />
 </div>
     <!-- This script needs to be after everything -->
     <script src="static/DialektRecorder.js"></script>

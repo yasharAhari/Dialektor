@@ -31,4 +31,4 @@ class metadata(models.Model):
 class collection(models.Model):
     name = models.CharField(max_length=200, default='defaultName')
     user_id = models.CharField(max_length=100, default='defaultUser')
-    pic_id = models.CharField(max_length=100, default='defaultPic', primary_key=True)
+    pic_id = models.CharField(max_length=100)
