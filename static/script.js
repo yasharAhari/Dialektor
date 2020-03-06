@@ -40,6 +40,7 @@ $(document).ready(function(){
     $("#rec").hide();
     $("#pause").show();
     $("#time").show();
+    console.log("User collections:");
     button_press(user_requests.START_RECORDING);
   });
   
@@ -142,7 +143,6 @@ $(document).ready(function(){
     $('#collection').keyup(function(e) {
       if($("#collection").val() == "")
       {
-        console.log("empty");
         $("#add-collection").hide();
       }
     });
