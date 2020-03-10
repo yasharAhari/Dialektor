@@ -1,5 +1,40 @@
 
 $(document).ready(function(){
+ var collections = ""
+    $.ajaxSetup({
+         beforeSend: function(xhr, settings) {
+             function getCookie(name) {
+                 var cookieValue = null;
+                 if (document.cookie && document.cookie != '') {
+                     var cookies = document.cookie.split(';');
+                     for (var i = 0; i < cookies.length; i++) {
+                         var cookie = jQuery.trim(cookies[i]);
+                         // Does this cookie string begin with the name we want?
+                         if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                             cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                             break;
+                         }
+                     }
+                 }
+                 return cookieValue;
+             }
+             if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                 // Only send the token to relative URLs i.e. locally.
+                 xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+             }
+        }
+    });
+    $.ajax({
+        url: 'collections',
+        type: 'POST',
+        contentType: false,
+        processData: false,
+    }).done(function(data) {
+        collections = data;
+        collections = collections.slice(0,-2);
+        console.log("User collections: " + collections);
+        collections = collections.split(",")
+    });
   $("#smallRec").css("pointer-events","none");    // disable click events to be registered.
   $("#rec").click(function(){
     $("#rec").hide();
@@ -69,5 +104,39 @@ $(document).ready(function(){
       $("#smallRec").css({"background":"#fff"});
     }
   });
+
+    var name = '';
+    $('#collection').keyup(function(e) {
+      var val = $(this).val();
+      if(val == '') {
+        $('#autocomplete').text('');
+        return;
+      }
+
+      if (e.which === 37 || e.which === 13) {
+        e.preventDefault();
+        $('#collection').val(name);
+        $('#autocomplete').text('');
+        return;
+      }
+
+      var find = false;
+      for (var i = 0; i < collections.length; i++) {
+        name = collections[i].trim();
+        if(name.indexOf(val) === 0) {
+          find = true;
+          break;
+        } else {
+          name = '';
+        }
+      }
+
+      if(find === true) {
+        $('#autocomplete').text(name);
+      } else {
+        $('#autocomplete').text('');
+      }
+    })
+
     
 });

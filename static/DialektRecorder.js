@@ -35,8 +35,8 @@ let recorder;
 let recordedAudio;
 
 // other html elements
-const timer_text = document.getElementById("time");     // the timer
-const progress = document.getElementById("progress");   // progress bar
+timer_text = document.getElementById("time");     // the timer
+progress = document.getElementById("progress");   // progress bar
 
 recorder_initial_load();
 
@@ -138,7 +138,7 @@ function button_press(user_request) {
     {
         recordedAudio.play();
         // time interval is much shorter because of progress bar
-        timer = window.setInterval(playback_tick,250);
+        timer = window.setInterval(function(){playback_tick(recordedAudio)},250);
 
     }
     else if(user_request === user_requests.PAUSE_RECORDED)
@@ -189,14 +189,7 @@ function button_press(user_request) {
             contentType: false,
             processData: false,
         }).done(function(data) {
-            //var newDoc = document.open("text/html", "replace");
-            //newDoc.write(data);
-            //newDoc.close();
-            $("html").html(data);
-            console.log($("#sound-id").html())
-            history.pushState('data', '', 'http://127.0.0.1:8000/sounds/' + $("#sound-id").html() + "/")
-            set_up_player()
-            //$('html').html(data);
+            window.location.replace("http://127.0.0.1:8000/sounds/" + data)
         });
     }
     else if(user_request === user_requests.DISCARD)
@@ -232,9 +225,11 @@ function record_tick()
 /**
  * This is like recording_tick but for when playing back the recorded piece.
  */
-function playback_tick() {
+function playback_tick(audioSource) {
     // set the timing stuff
-    let current_time = recordedAudio.currentTime;
+    timer_text = document.getElementById("time");     // the timer
+    progress = document.getElementById("progress");   // progress bar
+    let current_time = audioSource.currentTime;
     let total_time = context_time;
     timer_text.innerText = get_minute_second(current_time) + "/" + get_minute_second(total_time);
 
@@ -277,20 +272,31 @@ function get_minute_second(seconds) {
 
 function set_up_player()
 {
-    $("#start").show()
     var playbacker = document.createElement("AUDIO");
 
     playbacker.src = "http://127.0.0.1:8000/raw/" + $("#sound-id").html()
-
+    $("#playback").append(playbacker);
+    sleep(200);
+    $("#bar").show();
+    $("#progress").show();
+    $("#start").show();
+    $("#start").show();
     $("#start").click(function(){
         $("#start").hide();
         $("#pause").show();
-        playbacker.paused = false;
+        playbacker.play();
+        timer = window.setInterval(function(){playback_tick(playbacker)},250);
     });
     $("#pause").click(function(){
         $("#pause").hide();
         $("#start").show();
-        playbacker.paused = true;
+
+        playbacker.pause();
+        window.clearInterval(timer);
     });
 
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }

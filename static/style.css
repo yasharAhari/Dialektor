@@ -6,6 +6,12 @@ html, body
   padding:0;
 }
 
+.login_container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #profile
 {
   font-family: 'Cabin', sans-serif;
@@ -17,6 +23,11 @@ html, body
   text-align: center;
   display: inline-block;
   float: right;
+}
+/*removes styling for links of #profile */
+#profile  a{
+  text-decoration: none;
+  color: white;
 }
 
 #logo
@@ -30,6 +41,11 @@ html, body
   text-align: center;
   display: inline-block;
   float: left;
+}
+/*removes styling for links of #logo */
+#logo  a{
+  text-decoration: none;
+  color: white;
 }
 
 #profile:hover
@@ -143,14 +159,50 @@ html, body
   color: #000;
 }
 
-#collection
+#container,
+#collection,
+#autocomplete
+
 {
-  border: solid;
-  height: 3vh;
-  width: 40vw;
+    width:40vw;
+    height: 3vh;
+    line-height: 37px;
+    margin: 0 auto;
+}
+
+#container
+{
+    position: relative;
+
+}
+
+
+#collection,
+#autocomplete
+{
+  position: absolute;
+  top: 0;
+  right: 0;
   font-size: 3vh;
   font-family: 'Cabin', sans-serif;
-  color: #000;
+  cursor: text;
+  border:solid;
+  padding: 0 8px;
+  }
+
+#collection
+{
+  background-color: transparent;
+}
+
+#autocomplete
+{
+    color: #aa9f9f;
+}
+
+#collection:focus
+{
+  outline: none;
 }
 
 #category
@@ -244,7 +296,24 @@ input[type=submit]
 
 #sound-id
 {
-  display: hidden;
+  display: none;
+}
+
+#sound-title
+{
+  font-family: 'Cabin', sans-serif;
+  font-size: 3.0vh;
+}
+
+#author
+{
+  font-family: 'Cabin', sans-serif;
+  font-size: 3.0vh;
+}
+
+#user-id
+{
+  display: none;
 }
 
 a{

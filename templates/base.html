@@ -1,19 +1,28 @@
 <!-- templates/base.html -->
-{% load static %}
+
+{% load  static %}
+
+
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>{% block title %}Auth testing{% endblock %}</title>
-  <link rel="stylesheet" type="text/css" href="/static/style.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="/static/script.js"></script>
+  <link rel="stylesheet" href="{% static "style.css" %}">
+
 </head>
+
 <body>
   <header>
     <div class="container">
-        <a href="/"><div id="logo">dialektor</div></a>
-        <a href="/profile/"><div id="profile">{{user.username}}</div></a>
+      <div id="logo"><a href="/">dialektor</a></div>
+      {% if user.username %}
+      <div id="profile">{{user.username}}</div>
+      {% else %}
+      <div id="profile"><a href="/accounts/login">Log in!</a></div>
+      {% endif %}
     </div>
   </header>
   <main>
@@ -21,4 +30,5 @@
     {% endblock %}
   </main>
 </body>
+
 </html>

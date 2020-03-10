@@ -3,6 +3,7 @@
 {% block content %}
 {% if user.is_authenticated %}
     <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+    <script src="/static/script.js"></script>
 <div id="content">
   <div id="options">
     <div id="smallRec"></div>
@@ -24,7 +25,10 @@
     <input type="text" name="length" id="length" />
     <input type="text" name="title" id="title" placeholder="Title" />
     <br>
-    <input type="text" name="collection" id="collection" placeholder="Collection" />
+    <div id="container">
+      <div id="autocomplete"></div>
+      <input type="text" name="collection" id="collection" placeholder="Collection" />
+    </div>
     <br>
     <input type="text" name="category" id="category" placeholder="Category" />
     <br>
@@ -35,7 +39,6 @@
 </div>
     <!-- This script needs to be after everything -->
     <script src="static/DialektRecorder.js"></script>
-
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">login</a>
