@@ -5,11 +5,12 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from .models import CustomUser, metadata
 from .models import collection as Collection
 from dialektor_files.fileHandling import DialektFileSecurity, StorageBucket
 import hashlib
+from django.core.mail import send_mail
 
 
 def login_user(request, second=None):
@@ -99,6 +100,8 @@ def profile(request):
 
     # Get list of all user recordings
     ## TODO: only list latest 10 recordings
+    if request.user.is_anonymous:
+        return HttpResponseRedirect('/')
     userId = request.user.user_id
     meta_objs = metadata.objects.filter(user_id=userId)
     records = {}
@@ -113,8 +116,8 @@ def profile(request):
         records[obj.fileID] = data
 
     # get user collections
-    '''
-    collection_list = collection.objects.filter(user_id=userId)
+
+    collection_list = Collection.objects.filter(user_id=userId)
     collections = {}
 
     for obj in collection_list:
@@ -122,12 +125,11 @@ def profile(request):
             'picture': obj.pic_id
         }
         collections[obj.name] = data
-    '''
     content = {
         # TODO: get real profile pic name after it gets implemented
         'profile_pic': '/static/defaultprofile1.png',
         'user_records': records,
-        #'user_collections': collections
+        'user_collections': collections
     }
     return render(request, 'profile/profile.html', content)
 
@@ -164,14 +166,18 @@ def change_pass(request):
                 return render(request, 'profile/providePass.html', {'message': message})
         else:
             # Change pass word
-
             user.set_password(new_pass)
             user.save()
             update_session_auth_hash(request, request.user)
-            pass
+            return messenger(request, message="Password successfully updated!", m_type="success", url_return="/profile")
     else:
         return render(request, 'profile/providePass.html', {'message': message})
     pass
+
+
+def messenger(request, message="Hello there", m_type="undefined", url_return="/"):
+    return render(request, 'profile/messenger.html', {'message': message, 'type': m_type, 'ureturn': url_return})
+
 
 def get_collections(request):
     collection_list = ""

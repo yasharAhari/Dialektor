@@ -32,10 +32,6 @@
                 <p><center>collection: {{data.collection}}</center></p>
                 <p><center><i>Tags:</i>#{{data.tags}}</center></p>
                 <center>
-                <audio controls="controls" >
-                  Your browser does not support the &lt;audio&gt; tag.
-                  <source src="/raw/{{record_id}}" />
-                </audio>
                 </center>
               </div></a>
             {% endfor %}
@@ -48,7 +44,7 @@
         {% for collection_name, data in user_collections.items %}
         <div class="flex-container flex-direction-horizontal" id="collections">
             <div class="grid-item" style="background-image: url('{{ data.pic_id }}');">
-                <p>{{ collection_name }}</p>
+                <center><p>{{ collection_name }}</p></center>
             </div>
         </div>
         {% endfor %}

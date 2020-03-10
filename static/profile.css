@@ -7,9 +7,8 @@ html, body {
 }
 
 .grid-item {
-  border-radius:15%;
-  height: 15vw;
-  width: 30vw;
+  height: 13vw;
+  width: 13vw;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
   margin: 5px;
   cursor: pointer;
@@ -80,9 +79,9 @@ html, body {
       /* background-color: red; */
     }
     .grid-item{
-      border-radius: 5%;
+
       height: 12vw;
-      width: 18vw;
+      width: 12vw;
     }
   }
 
