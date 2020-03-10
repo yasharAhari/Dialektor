@@ -96,16 +96,30 @@ def signup(request):
 
 
 def profile(request):
-    # Renders the profile page
-
-    # Get list of all user recordings
-    ## TODO: only list latest 10 recordings
+    # check if user is logged in
     if request.user.is_anonymous:
         return HttpResponseRedirect('/')
+
+
+
+    ## TODO: only list latest 10 recordings
+
     userId = request.user.user_id
-    meta_objs = metadata.objects.filter(user_id=userId)
+
+    # Get list of all user recordings, we need all of them for getting tags
+    meta_objs = metadata.objects.filter(user_id=userId).order_by('-date_created')
+
+    # All user tags
+    tags = set([])
+
+    user_tags = {}
+
+    # records are dic of all user recordings
     records = {}
     for obj in meta_objs:
+        # Add the tags in the current record to the list
+        for tag in obj.tags.split(','):
+            tags.add(tag.strip())
 
         data = {
             'title': obj.title,
@@ -125,11 +139,20 @@ def profile(request):
             'picture': obj.pic_id
         }
         collections[obj.name] = data
+
+    # Collect all user tags
+    for tag in tags:
+        data = {
+            'tag_name': tag
+        }
+        user_tags[tag] = data
+
     content = {
         # TODO: get real profile pic name after it gets implemented
         'profile_pic': '/static/defaultprofile1.png',
         'user_records': records,
-        'user_collections': collections
+        'user_collections': collections,
+        'user_tags': user_tags
     }
     return render(request, 'profile/profile.html', content)
 

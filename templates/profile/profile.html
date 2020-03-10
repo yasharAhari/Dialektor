@@ -52,21 +52,12 @@
         <br>
         <h2>Tags</h2>
         <!-- The django for loops to generate all of the tags will go inside this div -->
-        <div class="flex-container flex-direction-horizontal" id="tags">
-              <img class="grid-item" src="img/4.png" alt="Smiley face">
-              <img class="grid-item" src="img/smiley.gif" alt="Smiley face">
-              <img class="grid-item" src="img/1.png" alt="Smiley face">
-              <img class="grid-item" alt="" src="img/face-50x50.png">
-              <img class="grid-item" src="img/2.jpg" alt="Smiley face">
-              <img class="grid-item" src="img/3.jpg" alt="Smiley face">
-        </div>
+        {% for tag_name, data in user_tags.items %}
+            <a style="cursor: pointer">#{{ tag_name }} </a>
 
-        <br>
-        <h2>Categories</h2>
-        <!-- The django for loops to generate all of the categories will go inside this div -->
-        <div class="flex-container flex-direction-horizontal" id="categories">
-              <img class="grid-item" src="img/smiley.gif" alt="Smiley face" height="75" width="100">
-        </div>
+        {% endfor %}
+
+
 {% else %}
   {% include "/templates/registration/YouAreNotLoggedIn.html" %}
 {% endif %}
