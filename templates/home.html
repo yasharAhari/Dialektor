@@ -19,23 +19,29 @@
   <div id="bar">
     <div id="progress"></div>
   </div>
-<div>
-<div id="data">
-  <form action="/upload" method="post"> {% csrf_token %}
-    <input type="text" name="length" id="length" />
-    <input type="text" name="title" id="title" placeholder="Title" />
-    <br>
-    <div id="container">
-      <div id="autocomplete"></div>
-      <input type="text" name="collection" id="collection" placeholder="Collection" />
-    </div>
-    <br>
-    <input type="text" name="category" id="category" placeholder="Category" />
-    <br>
-    <input type="text" name="tags" id="tags" placeholder="Tags" />
-    <br>
-    <input type="button" name="save" id="save" value="Save"/><input type="button" name="discard" id="discard" value="Discard" />
-  </form>
+<div id="form-container">
+  <div id="data">
+    <form action="/upload" method="post"> {% csrf_token %}
+      <input type="text" name="length" id="length" />
+      <input type="text" name="title" id="title" placeholder="Title" />
+      <br>
+      <div id="container">
+        <div id="autocomplete"></div>
+        <input type="text" name="collection" id="collection" placeholder="Collection" />
+        <div id="add-collection">+</div>
+      </div>
+      <br>
+      <input type="text" name="category" id="category" placeholder="Category" />
+      <br>
+      <input type="text" name="tags" id="tags" placeholder="Tags" />
+      <br>
+      <input type="button" name="save" id="save" value="Save"/><input type="button" name="discard" id="discard" value="Discard" />
+    </form>
+  </div>
+  <div id="pic-box">
+    <img class="profile-pic"/>
+  </div>
+  <input type="file" id="image-upload" accept="image/*" />
 </div>
     <!-- This script needs to be after everything -->
     <script src="static/DialektRecorder.js"></script>

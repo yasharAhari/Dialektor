@@ -164,10 +164,11 @@ html, body
 #autocomplete
 
 {
-    width:40vw;
+    width:38.85vw;
     height: 3vh;
     line-height: 37px;
     margin: 0 auto;
+    margin: 0px -14px -15px 8px;
 }
 
 #container
@@ -205,7 +206,23 @@ html, body
   outline: none;
 }
 
-#category
+
+#add-collection
+{
+    position: absolute;
+    right: 0%;
+    font-family: 'Cabin', sans-serif;
+    font-size: 3vh;
+    display: none;
+}
+
+#add-collection:hover
+{
+    color:red;
+}
+
+#category 
+
 {
   border: solid;
   height: 3vh;
@@ -316,7 +333,21 @@ input[type=submit]
   display: none;
 }
 
+
 a{
   color: inherit; /* usual colors for links too */
   text-decoration: inherit; /* no underline */
+}
+#pic-box
+{
+  border: solid;
+  height: 10vw;
+  width: 10vw;
+  display: none;
+}
+
+#image-upload
+{
+  display:none;
+
 }

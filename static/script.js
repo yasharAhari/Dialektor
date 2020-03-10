@@ -40,6 +40,7 @@ $(document).ready(function(){
     $("#rec").hide();
     $("#pause").show();
     $("#time").show();
+    console.log("User collections:");
     button_press(user_requests.START_RECORDING);
   });
   
@@ -65,6 +66,7 @@ $(document).ready(function(){
     $("#start").show();
     $("#smallRec").hide();
     $("#data").show();
+    $("#pic-box").show();
     $("#bar").show();
     $("#progress").show();
     button_press(user_requests.STOP_RECORDING);
@@ -130,13 +132,52 @@ $(document).ready(function(){
           name = '';
         }
       }
-
       if(find === true) {
         $('#autocomplete').text(name);
+        $("#add-collection").hide();
       } else {
+        $("#add-collection").show();
         $('#autocomplete').text('');
       }
     })
+    $('#collection').keyup(function(e) {
+      if($("#collection").val() == "")
+      {
+        $("#add-collection").hide();
+      }
+    });
 
-    
+
+    var readURL = function(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+               $('.profile-pic').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $("#image-upload").on('click', function(){
+        console.log("READING URL");
+        readURL(this);
+    });
+
+    $("#pic-box").on('click', function() {
+       $("#image-upload").click();
+    });
+
+$('img').on('load', function(){
+    var css;
+    var ratio=$(this).width() / $(this).height();
+    var pratio=$(this).parent().width() / $(this).parent().height();
+    if (ratio<pratio) css={width:'auto', height:'100%'};
+    else css={width :'100%', height:'100%'};
+    console.log(ratio, pratio, css);
+    $(this).css(css);
+
+});
 });

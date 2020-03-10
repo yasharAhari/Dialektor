@@ -81,8 +81,11 @@ def upload(request):
     storage_bucket2.s_read_file_from_bucket()
     file_rcv = storage_bucket2.file
     collections = Collection.objects.all().filter(user_id=user)
-    c = Collection(user_id=user, name=request.POST.get('collection', 'none'), pic_id=fileID)
-    c.save()
+    col_name = request.POST.get('collection', 'none')
+    names = [collection.name for collection in collections]
+    if col_name not in names:
+        c = Collection(user_id=user, name=request.POST.get('collection', 'none'), pic_id=fileID)
+        c.save()
     #return HttpResponseRedirect(reverse('render_sound', kwargs={'sound_id': fileID}))
     return HttpResponse(fileID)
 
