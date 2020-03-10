@@ -10,19 +10,15 @@
             it is also a flex item to its parent container #top-level-flexcontainer  -->
             <div class="flex-container flex-direction-horizontal" id="userinfo-flexcontainer">
                 <div class="card">
-                    <img src="{{profile_pic}}" alt="{{user.first_name}}" style="width:50%">
-                    <h1>{{user.username}}</h1>
-                    <p>{{user.first_name}} {{user.last_name}}</p>
-                    <p class="Account type">{{user.email}}</p>
-                    <p>personal account</p>
-                    <a href="/userUpdateProfile"><button type="button">Edit Profile</button></a>
+                    <p>Tag</p>
+                    <h2>#{{ tag_name }}</h2>
                 </div>
 
             </div>
 
         </div>
         <br><br>
-        <h2>Recent Sounds</h2>
+        <h2>Sounds with tag #{{ tag_name}}</h2>
         <!-- The django for loops to generate all of the sounds will go inside this div -->
         <div class="flex-container flex-direction-horizontal" id="recent-sounds">
             {% for record_id, data in user_records.items %}
@@ -37,28 +33,6 @@
             {% endfor %}
 
         </div>
-        <br>
-        <h2>My Collections</h2>
-        <br>
-        <!-- The django for loops to generate all of the collections will go inside this div, in a seperate div -->
-        <div class="flex-container flex-direction-horizontal" id="collections">
-            {% for collection_name, data in user_collections.items %}
-
-                <a href="/collection/{{ collection_name }}"><div class="grid-item" style="background-image: url('{{ data.pic_id }}');">
-                    <center><p>{{ collection_name }}</p></center>
-                </div></a>
-
-            {% endfor %}
-        </div>
-        <br>
-        <h2>Tags</h2>
-        <!-- The django for loops to generate all of the tags will go inside this div -->
-        {% for tag_name, data in user_tags.items %}
-            <a href="/tag/{{ tag_name }}" style="cursor: pointer">#{{ tag_name }} </a>
-
-        {% endfor %}
-
-
 {% else %}
   {% include "/templates/registration/YouAreNotLoggedIn.html" %}
 {% endif %}

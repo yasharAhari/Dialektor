@@ -10,7 +10,8 @@ from .models import CustomUser, metadata
 from .models import collection as Collection
 from dialektor_files.fileHandling import DialektFileSecurity, StorageBucket
 import hashlib
-from django.core.mail import send_mail
+from django.core.exceptions import ObjectDoesNotExist
+
 
 
 def login_user(request, second=None):
@@ -160,24 +161,20 @@ def profile(request):
 
 def collection_list(request, collection_name):
 
-    print("Get collection: " + collection_name)
-
     # check if user is logged in
     if request.user.is_anonymous:
         return HttpResponseRedirect('/')
 
     user = request.user.user_id
-    collections = Collection.objects.all().filter(user_id=user)
 
-    col_list = []
+    # check if the collection exist
+    try:
+        collection = Collection.objects.get(user_id=user, name=collection_name)
+    except ObjectDoesNotExist:
+        return messenger(request, message="No such collection as " + collection_name, m_type="warning",
+                         url_return='/profile/')
 
-    for col in collections:
-        col_list.append(col.name)
-
-    if collection_name not in col_list:
-        return messenger(request, message="No such collection as " + collection_name, m_type="warning", url_return='/profile/')
-
-        # Get list of all user recordings, we need all of them for getting tags
+    # Get list of all user recordings, we need all of them for getting tags
     meta_objs = metadata.objects.filter(user_id=user, collection=collection_name).order_by('-date_created')
     # records are dic of all user recordings
     records = {}
@@ -213,6 +210,36 @@ def collection_list(request, collection_name):
     return render(request, 'profile/collectionList.html', content)
 
 
+def tag_list(request, tag_name):
+    # check if user is logged in
+    if request.user.is_anonymous:
+        return HttpResponseRedirect('/')
+
+    user = request.user.user_id
+
+    meta_objs = metadata.objects.filter(user_id=user, tags__contains=tag_name).order_by('-date_created')
+    if len(meta_objs) == 0:
+        return messenger(request, message="No such Tag", m_type="warning", url_return="/profile/")
+
+    # records are dic of all user recordings
+    records = {}
+    for obj in meta_objs:
+
+        data = {
+            'title': obj.title,
+            'date': obj.date_created,
+            'collection': obj.collection,
+            'tags': obj.tags,
+        }
+        records[obj.fileID] = data
+
+    content = {
+        'tag_name': tag_name,
+        'user_records': records
+    }
+    return render(request, 'profile/tagList.html', content)
+
+
 def profile_update(request):
     if request.method == 'POST':
         user = CustomUser.objects.get(username=request.user.username)
@@ -220,7 +247,7 @@ def profile_update(request):
         user.last_name = request.POST.get('last_name', 'none')
         user.save()
 
-        return HttpResponseRedirect('/profile')
+        return messenger(request, message="Changes Saved Successfully!", m_type="success", url_return="/profile/")
 
     else:    
         content = {
