@@ -82,7 +82,9 @@ def upload(request):
     if col_name not in names:
         c = Collection(user_id=user, name=request.POST.get('collection', 'none'), pic_id=fileID)
         c.save()
-    #return HttpResponseRedirect(reverse('render_sound', kwargs={'sound_id': fileID}))
+        collection_pic = request.FILES.get('collection-pic', None)
+        if collection_pic is not None:
+            StorageBucket.write_file_to_storage("testingname.png",collection_pic)
     return HttpResponse(fileID)
 def signup(request):
     # renders the signup form

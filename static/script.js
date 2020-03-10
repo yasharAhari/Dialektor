@@ -40,7 +40,6 @@ $(document).ready(function(){
     $("#rec").hide();
     $("#pause").show();
     $("#time").show();
-    console.log("User collections:");
     button_press(user_requests.START_RECORDING);
   });
   
@@ -153,7 +152,7 @@ $(document).ready(function(){
             var reader = new FileReader();
 
             reader.onload = function (e) {
-               $('.profile-pic').attr('src', e.target.result);
+               $('#collection-pic').attr('src', e.target.result);
             }
 
             reader.readAsDataURL(input.files[0]);
@@ -162,7 +161,6 @@ $(document).ready(function(){
 
 
     $("#image-upload").on('click', function(){
-        console.log("READING URL");
         readURL(this);
     });
 
@@ -176,7 +174,6 @@ $('img').on('load', function(){
     var pratio=$(this).parent().width() / $(this).parent().height();
     if (ratio<pratio) css={width:'auto', height:'100%'};
     else css={width :'100%', height:'100%'};
-    console.log(ratio, pratio, css);
     $(this).css(css);
 
 });
