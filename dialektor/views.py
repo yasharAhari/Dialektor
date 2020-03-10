@@ -97,6 +97,7 @@ def signup(request):
 
 def profile(request):
     # check if user is logged in
+    # since we are trying to access user information
     if request.user.is_anonymous:
         return HttpResponseRedirect('/')
 
@@ -155,6 +156,61 @@ def profile(request):
         'user_tags': user_tags
     }
     return render(request, 'profile/profile.html', content)
+
+
+def collection_list(request, collection_name):
+
+    print("Get collection: " + collection_name)
+
+    # check if user is logged in
+    if request.user.is_anonymous:
+        return HttpResponseRedirect('/')
+
+    user = request.user.user_id
+    collections = Collection.objects.all().filter(user_id=user)
+
+    col_list = []
+
+    for col in collections:
+        col_list.append(col.name)
+
+    if collection_name not in col_list:
+        return messenger(request, message="No such collection as " + collection_name, m_type="warning", url_return='/profile/')
+
+        # Get list of all user recordings, we need all of them for getting tags
+    meta_objs = metadata.objects.filter(user_id=user, collection=collection_name).order_by('-date_created')
+    # records are dic of all user recordings
+    records = {}
+    tags = set([])
+    for obj in meta_objs:
+        # Add the tags in the current record to the list
+        for tag in obj.tags.split(','):
+            tags.add(tag.strip())
+
+        data = {
+            'title': obj.title,
+            'date': obj.date_created,
+            'collection': obj.collection,
+            'tags': obj.tags,
+        }
+        records[obj.fileID] = data
+
+    user_tags = {}
+
+    # Collect all user tags
+    for tag in tags:
+        data = {
+            'tag_name': tag
+        }
+        user_tags[tag] = data
+
+    content = {
+        'collection_name': collection_name,
+        'user_records': records,
+        'user_tags': user_tags
+    }
+
+    return render(request, 'profile/collectionList.html', content)
 
 
 def profile_update(request):
