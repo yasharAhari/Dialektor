@@ -19,7 +19,7 @@
     <div class="container">
       <div id="logo"><a href="/">dialektor</a></div>
       {% if user.username %}
-      <div id="profile">{{user.username}}</div>
+          <a href="/profile"><div id="profile">{{user.username}}</div></a>
       {% else %}
       <div id="profile"><a href="/accounts/login">Log in!</a></div>
       {% endif %}
