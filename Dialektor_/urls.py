@@ -34,6 +34,7 @@ urlpatterns = [
     path('changePassword/', views.change_pass, name="change_pass"),
     path('collection/<str:collection_name>/', views.collection_list, name="collection_list"),
     path('tag/<str:tag_name>/', views.tag_list, name="tag_list"),
+    path('profilePic/', views.get_profile_pic, name="get_profile_pic"),
 
     path('collections', views.get_collections, name="get_collections")
 

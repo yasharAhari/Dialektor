@@ -240,12 +240,25 @@ def tag_list(request, tag_name):
     return render(request, 'profile/tagList.html', content)
 
 
+def get_user_profile_pic_id(user_info: CustomUser):
+
+    hashed = hashlib.md5(str.encode(user_info.email + user_info.username + "picture_salt_1ef88f55e84sf684tht6")).hexdigest()
+    print(hashed)
+    return hashed
+
 def profile_update(request):
     if request.method == 'POST':
         user = CustomUser.objects.get(username=request.user.username)
         user.first_name = request.POST.get('first_name', 'none')
         user.last_name = request.POST.get('last_name', 'none')
         user.save()
+
+        ##profile_pic = request.POST.get('profile-pic', False)
+        ##print(request.POST.get('profile-pic', False))
+        if request.FILES['profile-pic']:
+            pic_file_id = get_user_profile_pic_id(CustomUser.objects.get(username=request.user.username))
+            StorageBucket.write_file_to_storage(pic_file_id, request.FILES['profile-pic'].read())
+
 
         return messenger(request, message="Changes Saved Successfully!", m_type="success", url_return="/profile/")
 
@@ -255,6 +268,19 @@ def profile_update(request):
             'profile_pic': '/static/defaultprofile1.png',
         }
         return render(request, "profile/editUserProfile.html", content)
+
+
+def get_profile_pic(request):
+    pic_file_name = get_user_profile_pic_id(CustomUser.objects.get(username=request.user.username))
+    print("serving the file " + pic_file_name)
+    try:
+        file_rcv = StorageBucket.read_file_from_storage(pic_file_name)
+        print("There is a profile picture")
+    except IOError:
+        file_rcv = StorageBucket.read_file_from_storage("defaultprofile1.png")
+        print("There is NOT a profile picture")
+    return HttpResponse(file_rcv, content_type='application/force-download')
+
 
 
 def change_pass(request):
