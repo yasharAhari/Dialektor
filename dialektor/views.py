@@ -25,8 +25,9 @@ def index_home(request, second=None):
 def render_sound(request, sound_id):
     sound = metadata.objects.get(fileID=sound_id)
     user = CustomUser.objects.get(user_id=sound.user_id)
+    collection = Collection.objects.get(user_id=sound.user_id, name=sound.collection)
     print(sound.title)
-    return render(request, 'sound.html', {'sound': sound_id, 'title': sound.title, 'author': user.username})
+    return render(request, 'sound.html', {'sound': sound_id, 'title': sound.title, 'author': user.username, 'pic_src': collection.pic_id})
 
 def get_sound(request, sound_id):
     meta_obj = metadata.objects.get(fileID=sound_id)
@@ -34,6 +35,10 @@ def get_sound(request, sound_id):
     storage.s_read_file_from_bucket()
     file_rcv = storage.file
     return HttpResponse(file_rcv, content_type='application/force-download')
+
+def get_picture(request, pic_id):
+    file_rcv = StorageBucket.read_file_from_storage(pic_id)
+    return HttpResponse(file_rcv, content_type='image/png')
 
 def create_user(request):
     print(request.POST)
@@ -80,12 +85,15 @@ def upload(request):
     col_name = request.POST.get('collection', 'none')
     names = [collection.name for collection in collections]
     if col_name not in names:
-        c = Collection(user_id=user, name=request.POST.get('collection', 'none'), pic_id=fileID)
+        pic_id = hashlib.md5(str.encode(col_name+user)).hexdigest()
+        c = Collection(user_id=user, name=request.POST.get('collection', 'none'), pic_id=pic_id)
         c.save()
         collection_pic = request.FILES.get('collection-pic', None)
         if collection_pic is not None:
-            StorageBucket.write_file_to_storage("testingname.png",collection_pic)
+            collection_pic.name = pic_id
+            StorageBucket.write_file_to_storage(pic_id, collection_pic)
     return HttpResponse(fileID)
+
 def signup(request):
     # renders the signup form
     return render(request, 'signup.html')

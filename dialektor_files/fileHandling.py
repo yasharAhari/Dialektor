@@ -1,7 +1,7 @@
 from Cryptodome.Cipher import AES
 from Cryptodome.Hash import SHA256
 import hashlib
-from dialektor.models import metadata
+from dialektor.models import metadata, collection as Collection
 from django.core.files.storage import default_storage
 
 class DialektFileSecurity:
@@ -181,7 +181,7 @@ class StorageBucket:
         :return: None
         """
         file_writer = default_storage.open(name, 'w')
-        file_writer.write(file)
+        file_writer.write(file.read())
         file_writer.close()
 
     @staticmethod

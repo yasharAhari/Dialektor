@@ -27,6 +27,7 @@ urlpatterns = [
     path('signup/create_user', views.create_user),
     path('upload', views.upload),
     path('sounds/<str:sound_id>/', views.render_sound, name='render_sound'),
+    path('pic/<str:pic_id>/', views.get_picture, name="get pic"),
     path('raw/<str:sound_id>/', views.get_sound, name="get_sound"),
     path('collections', views.get_collections, name="get_collections")
 ]
