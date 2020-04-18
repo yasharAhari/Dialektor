@@ -30,8 +30,9 @@ def index_home(request, second=None):
 def render_sound(request, sound_id):
     sound = metadata.objects.get(fileID=sound_id)
     user = CustomUser.objects.get(user_id=sound.user_id)
+    collection = Collection.objects.get(user_id=sound.user_id, name=sound.collection)
     print(sound.title)
-    return render(request, 'sound.html', {'sound': sound_id, 'title': sound.title, 'author': user.username})
+    return render(request, 'sound.html', {'sound': sound_id, 'title': sound.title, 'author': user.username, 'pic_src': collection.pic_id})
 
 
 def get_sound(request, sound_id):
@@ -40,6 +41,11 @@ def get_sound(request, sound_id):
     storage.s_read_file_from_bucket()
     file_rcv = storage.file
     return HttpResponse(file_rcv, content_type='application/force-download')
+
+
+def get_picture(request, pic_id):
+    file_rcv = StorageBucket.read_file_from_storage(pic_id)
+    return HttpResponse(file_rcv, content_type='image/png')
 
 
 def create_user(request):
@@ -86,9 +92,13 @@ def upload(request):
     col_name = request.POST.get('collection', 'none')
     names = [collection.name for collection in collections]
     if col_name not in names:
-        c = Collection(user_id=user, name=request.POST.get('collection', 'none'), pic_id=fileID)
+        pic_id = hashlib.md5(str.encode(col_name+user)).hexdigest()
+        c = Collection(user_id=user, name=request.POST.get('collection', 'none'), pic_id=pic_id)
         c.save()
-    #return HttpResponseRedirect(reverse('render_sound', kwargs={'sound_id': fileID}))
+        collection_pic = request.FILES.get('collection-pic', None)
+        if collection_pic is not None:
+            collection_pic.name = pic_id
+            StorageBucket.write_file_to_storage(pic_id, collection_pic)
     return HttpResponse(fileID)
 
 def signup(request):
@@ -246,6 +256,7 @@ def get_user_profile_pic_id(user_info: CustomUser):
     print(hashed)
     return hashed
 
+
 def profile_update(request):
     if request.method == 'POST':
         user = CustomUser.objects.get(username=request.user.username)
@@ -258,7 +269,6 @@ def profile_update(request):
         if request.FILES['profile-pic']:
             pic_file_id = get_user_profile_pic_id(CustomUser.objects.get(username=request.user.username))
             StorageBucket.write_file_to_storage(pic_file_id, request.FILES['profile-pic'].read())
-
 
         return messenger(request, message="Changes Saved Successfully!", m_type="success", url_return="/profile/")
 
