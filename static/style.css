@@ -84,6 +84,7 @@ html, body
 #pause
 {
   display: none;
+  align-self: center;
   width: 40vmin;
 }
 
@@ -130,6 +131,7 @@ html, body
 #start {
   display: none;
   width: 0;
+  align-self: center;
   height: 0;
   border-top: 20vmin solid transparent;
   border-left: 40vmin solid black;
@@ -335,10 +337,41 @@ input[type=submit]
   border: solid;
   height: 10vw;
   width: 10vw;
-  display: none;
+  align-self: center;
 }
 
 #image-upload
 {
   display:none;
+}
+
+#playbacker
+{
+  display: flex;
+  flex-direction: column;
+}
+
+#collection-pic
+{
+  max-width: 100%;
+}
+
+#sound-description
+{
+  display: flex;
+
+}
+
+.sound-detail
+{
+  display: flex;
+  flex-direction: column;
+}
+
+#attribution
+{
+  font-family: 'Cabin', sans-serif;
+  font-size: 3.0vh;
+  padding-left: 1vh;
+  padding-right: 1vh;
 }
