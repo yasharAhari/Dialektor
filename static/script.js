@@ -103,6 +103,7 @@ $(document).ready(function(){
       $("#playPause").hide();
       $("#smallRec").css("pointer-events","none");
       $("#smallRec").css({"background":"#fff"});
+      $("#pic-box").hide();
     }
   });
 
@@ -134,9 +135,11 @@ $(document).ready(function(){
       if(find === true) {
         $('#autocomplete').text(name);
         $("#add-collection").hide();
+        $("#pic-box").hide();
       } else {
         $("#add-collection").show();
         $('#autocomplete').text('');
+        $('#pic-box').show();
       }
     })
     $('#collection').keyup(function(e) {
@@ -147,20 +150,20 @@ $(document).ready(function(){
     });
 
 
-    var readURL = function(input) {
+    let readURL = function(input) {
         if (input.files && input.files[0]) {
-            var reader = new FileReader();
+            let reader = new FileReader();
 
             reader.onload = function (e) {
                $('#collection-pic').attr('src', e.target.result);
-            }
+            };
 
             reader.readAsDataURL(input.files[0]);
         }
-    }
+    };
 
 
-    $("#image-upload").on('click', function(){
+    $("#image-upload").change(function(){
         readURL(this);
     });
 

@@ -13,6 +13,8 @@
                     <p>Collection</p>
                     <h2>{{ collection_name }}</h2>
                     <hr>
+                    <img src="/pic/{{ picture }}" width="400">
+                    <hr>
                     <h4>Tags in this collection:</h4>
                     <p>
                         {% for tag_name, data in user_tags.items %}

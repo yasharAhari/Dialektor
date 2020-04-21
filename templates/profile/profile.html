@@ -44,8 +44,9 @@
         <div class="flex-container flex-direction-horizontal" id="collections">
             {% for collection_name, data in user_collections.items %}
 
-                <a href="/collection/{{ collection_name }}"><div class="grid-item" style="background-image: url('{{ data.pic_id }}');">
+                <a href="/collection/{{ collection_name }}"><div class="grid-item">
                     <center><p>{{ collection_name }}</p></center>
+                    <div class="collection-image" style="background: url('/pic/{{ data.picture }}');  background-size: cover; background-repeat: no-repeat; background-position: center; width: 100%"></div>
                 </div></a>
 
             {% endfor %}

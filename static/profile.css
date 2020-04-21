@@ -131,3 +131,9 @@ html, body {
   align-items: center;
   flex-direction: column;
 }
+
+.collection-image
+{
+
+  height: 10vw;
+}

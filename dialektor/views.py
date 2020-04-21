@@ -44,7 +44,10 @@ def get_sound(request, sound_id):
 
 
 def get_picture(request, pic_id):
-    file_rcv = StorageBucket.read_file_from_storage(pic_id)
+    try:
+        file_rcv = StorageBucket.read_file_from_storage(pic_id)
+    except IOError:
+        file_rcv = StorageBucket.read_file_from_storage('defaultCollection.png')
     return HttpResponse(file_rcv, content_type='image/png')
 
 
@@ -213,6 +216,7 @@ def collection_list(request, collection_name):
 
     content = {
         'collection_name': collection_name,
+        'picture': collection.pic_id,
         'user_records': records,
         'user_tags': user_tags
     }
