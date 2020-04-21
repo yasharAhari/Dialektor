@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css?family=Cabin:600i&display=swap');
+html, body {
+  font-family: 'Cabin', sans-serif;
+    margin: 0;
+    padding:0;
+    background-color: white;
+}
+
+.grid-item {
+  height: 13vw;
+  width: 13vw;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.9);
+  margin: 5px;
+  cursor: pointer;
+
+}
+.grid-item:hover {
+  scale: 1.1;
+}
+.flex-container {
+  display: flex;
+
+}
+
+.flex-direction-vertical {
+    flex-direction: column;
+    align-items: center;
+}
+.flex-direction-horizontal {
+    flex-direction: row;
+}
+
+/* Can possibly delete this, makes user card larger */
+#userinfo-flexcontainer img{
+
+  /* width: 12vw;
+  height: 18vh; */
+  align-self: center;
+}
+#recent-sounds {
+  flex-wrap: wrap;
+
+}
+#collections {
+  flex-wrap: wrap;
+
+}
+#tags {
+  flex-wrap: wrap;
+
+}
+#categories {
+  flex-wrap: wrap;
+
+}
+/* User card */
+.card {
+    font-family: 'Cabin', sans-serif;
+    padding: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+  }
+  /* Space between the logo and profile name to avoid the user info
+  floating upward */
+  #spacer1 {
+    height: 74px;
+  }
+
+  #category-image {
+      height: 25vw;
+      width: 30vw;
+  }
+
+
+  @media only screen and (max-width:800px) {
+    body{
+      /* background-color: red; */
+    }
+    .grid-item{
+
+      height: 12vw;
+      width: 12vw;
+    }
+  }
+
+
+ /* Zachs stuff */
+  #profile
+{
+  font-family: 'Cabin', sans-serif;
+  font-size: 28px;
+  padding: 20px;
+  background-color: #000;
+  color:white;
+  width: 150px;
+  text-align: center;
+  display: inline-block;
+  float: right;
+}
+
+#logo
+{
+  font-family: 'Cabin', sans-serif;
+  font-size: 28px;
+  padding: 20px;
+  background-color: #000;
+  color:white;
+  width: 150px;
+  text-align: center;
+  display: inline-block;
+  float: left;
+}
+
+#profile:hover
+{
+  background-color: #e46264;
+}
+
+#logo:hover
+{
+  background-color: #e46264;
+}
+
+#content
+{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.collection-image
+{
+
+  height: 10vw;
+}

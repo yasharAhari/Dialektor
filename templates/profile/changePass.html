@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title%}Change Password{% endblock%}
+{% block content %}
+{% if user.is_authenticated %}
+    <link rel="stylesheet" type="text/css" href="/static/profile.css">
+    <div>
+        <div class="flex-container flex-direction-horizontal" id="userinfo-flexcontainer">
+            <div class="card">
+                <p>Please enter new password</p>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input id="p" placeholder="New Password" name="new_password" type="password" required>
+                    <p id="warning" style="color: #ff0013;"></p>
+                    <input id="pr" placeholder="Re-New Password" name="password_re" type="password" onkeyup="check_pass()" required>
+                    <br>
+                    <br>
+                    <input id="submit" type="submit">
+                    <a href="/profile"><button type="button">Cancel</button></a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+    function check_pass(){
+        let p = document.getElementById('p');
+        let pr = document.getElementById('pr');
+        let sub = document.getElementById('submit');
+        let war = document.getElementById('warning');
+        if(p.value === pr.value){
+            sub.disabled = false;
+            war.innerText = '';
+        }
+        else{
+            sub.disabled = true;
+            war.innerText = 'Passwords not match!';
+        }
+
+    }
+    </script>
+
+{% else %}
+    {% include 'templates\registration\YouAreNotLoggedIn.html' %}
+{% endif %}
+{% endblock content %}

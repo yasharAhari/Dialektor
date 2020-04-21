@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block title %}Update Profile{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+    <link rel="stylesheet" type="text/css" href="/static/profile.css">
+    <div class="flex-container flex-direction-horizontal" id="userinfo-flexcontainer">
+        <div class="card">
+            <img id="profile-pic" src="/profilePic/" alt="{{user.first_name}}" style="width:50%">
+            <h1>{{user.username}}</h1>
+            <p class="Account type">{{user.email}}</p>
+            <form id="change-form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h4>First Name</h4>
+                <input name="first_name" type="text" value="{{user.first_name}}" required>
+                <br>
+                <h4>Last name</h4>
+                <input name="last_name" type="text" value="{{user.last_name}}" required>
+                <br>
+                <br>
+                <p>Change profile picture:</p>
+                <input id="selected-image" type="file" accept=".jpeg, .png, .bmp, .jpg" name="profile-pic">
+                <br>
+                <br>
+                <a href="/changePassword"><button type="button">Change password</button></a>
+                <hr>
+                <br>
+                <button type="submit">Save</button>
+                <a href="/profile"><button type="button">Cancel</button></a>
+            </form>
+            <script>
+                // selecting the picture will change the current image
+                document.getElementById('selected-image').onchange = function (evt) {
+                    console.log("Image selected");
+                    let tgt = evt.target || window.event.srcElement,
+                        files = tgt.files;
+
+                    // FileReader support
+                    if (FileReader && files && files.length) {
+                        let fr = new FileReader();
+                        fr.onload = function () {
+                            document.getElementById('profile-pic').src = fr.result;
+                        };
+                        fr.readAsDataURL(files[0]);
+                    }
+                    // Not supported by browser, let user just uploaded
+                    else {
+                        // fallback -- perhaps submit the input to an iframe and temporarily store
+                        // them on the server until the user's session ends.
+                        // }
+                        console.log("Browser incompatibility");
+                    }
+                };
+            </script>
+        </div>
+    </div>
+{% else %}
+    {% include "/templates/registration/YouAreNotLoggedIn.html" %}
+{% endif %}
+{% endblock %}

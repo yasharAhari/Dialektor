@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
-from django.views.generic.base import TemplateView 
+from django.views.generic.base import TemplateView
 import dialektor.views as views
 
 urlpatterns = [
@@ -29,5 +29,14 @@ urlpatterns = [
     path('sounds/<str:sound_id>/', views.render_sound, name='render_sound'),
     path('pic/<str:pic_id>/', views.get_picture, name="get pic"),
     path('raw/<str:sound_id>/', views.get_sound, name="get_sound"),
+
+    path('profile/',views.profile, name="profile"),
+    path('userUpdateProfile/', views.profile_update, name="profile_update"),
+    path('changePassword/', views.change_pass, name="change_pass"),
+    path('collection/<str:collection_name>/', views.collection_list, name="collection_list"),
+    path('tag/<str:tag_name>/', views.tag_list, name="tag_list"),
+    path('profilePic/', views.get_profile_pic, name="get_profile_pic"),
+
     path('collections', views.get_collections, name="get_collections")
+
 ]

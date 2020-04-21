@@ -35,8 +35,8 @@ let recorder;
 let recordedAudio;
 
 // other html elements
-timer_text = document.getElementById("time");     // the timer
-progress = document.getElementById("progress");   // progress bar
+let timer_text = document.getElementById("time");     // the timer
+let progress = document.getElementById("progress");   // progress bar
 
 recorder_initial_load();
 

@@ -71,9 +71,9 @@ html, body
 {
   width: 40vmin;
   height: 40vmin;
-  border-radius: 50%; 
+  border-radius: 50%;
   background:#cd0000;
-  
+
 }
 
 #rec:hover
@@ -164,6 +164,7 @@ html, body
 #container,
 #collection,
 #autocomplete
+
 {
     width:38.85vw;
     height: 3vh;
@@ -207,6 +208,7 @@ html, body
   outline: none;
 }
 
+
 #add-collection
 {
     position: absolute;
@@ -222,6 +224,7 @@ html, body
 }
 
 #category 
+
 {
   border: solid;
   height: 3vh;
@@ -231,7 +234,7 @@ html, body
   color: #000;
 }
 
-#tags 
+#tags
 {
   border: solid;
   height: 3vh;
@@ -246,7 +249,7 @@ html, body
   width:40vw;
   height:1vh;
   border: solid;
-  margin-top: 30px; 
+  margin-top: 30px;
   display: none;
 }
 
@@ -332,6 +335,11 @@ input[type=submit]
   display: none;
 }
 
+
+a{
+  color: inherit; /* usual colors for links too */
+  text-decoration: inherit; /* no underline */
+}
 #pic-box
 {
   border: solid;
@@ -343,6 +351,7 @@ input[type=submit]
 #image-upload
 {
   display:none;
+
 }
 
 #playbacker

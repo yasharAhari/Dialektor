@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}Home{% endblock %}
 {% block content %}
+{% if user.is_authenticated %}
     <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
     <script src="/static/script.js"></script>
 <div id="content">
@@ -37,15 +38,13 @@
       <input type="button" name="save" id="save" value="Save"/><input type="button" name="discard" id="discard" value="Discard" />
     </form>
   </div>
-  <div id="pic-box">
+  <div id="pic-box" hidden>
     <img id="collection-pic"/>
   </div>
   <input type="file" id="image-upload" accept="image/*" />
 </div>
     <!-- This script needs to be after everything -->
     <script src="static/DialektRecorder.js"></script>
-{% if user.is_authenticated %}
-  <p id="user-id">{{user_id}}</p>
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">login</a>

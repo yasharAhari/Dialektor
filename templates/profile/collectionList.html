@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+<link rel="stylesheet" type="text/css" href="/static/profile.css">
+<!-- This is the top level container, it holds all of the page contents below the nav bar.
+        This is a flex container with vertical flex-direction, it is also a flex item to its parent  -->
+        <div class="flex-container flex-direction-vertical" id="top-level-flexcontainer">
+            <!-- Flex container holding the user information, which are flex items. Has a horizontal flex-direction
+            it is also a flex item to its parent container #top-level-flexcontainer  -->
+            <div class="flex-container flex-direction-horizontal" id="userinfo-flexcontainer">
+                <div class="card">
+                    <p>Collection</p>
+                    <h2>{{ collection_name }}</h2>
+                    <hr>
+                    <img src="/pic/{{ picture }}" width="400">
+                    <hr>
+                    <h4>Tags in this collection:</h4>
+                    <p>
+                        {% for tag_name, data in user_tags.items %}
+                            <a href="" style="cursor: pointer;">#{{ tag_name }} </a>
+                        {% endfor %}
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+        <br><br>
+        <h2>Sounds in this collection</h2>
+        <!-- The django for loops to generate all of the sounds will go inside this div -->
+        <div class="flex-container flex-direction-horizontal" id="recent-sounds">
+            {% for record_id, data in user_records.items %}
+              <a href="/sounds/{{record_id}}"><div class="grid-item">
+                <h3><center>{{data.title}}</center></h3>
+                <p><center>{{data.date}}</center></p>
+                <p><center>collection: {{data.collection}}</center></p>
+                <p><center><i>Tags:</i>#{{data.tags}}</center></p>
+                <center>
+                </center>
+              </div></a>
+            {% endfor %}
+
+        </div>
+{% else %}
+  {% include "/templates/registration/YouAreNotLoggedIn.html" %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title%}Change Password{% endblock%}
+{% block content %}
+{% if user.is_authenticated %}
+    <link rel="stylesheet" type="text/css" href="/static/profile.css">
+    <div>
+        <div class="flex-container flex-direction-horizontal" id="userinfo-flexcontainer">
+            <div class="card">
+                <p>Hi {{ user.username }}</p>
+                {% if type == "success" %}
+                    <p style="color: darkolivegreen;">{{ message }}</p>
+                {% elif type == "warning" %}
+                    <p style="color: red;">{{ message }}</p>
+                {% elif type == "undefined" %}
+                    <p>{{ message }}</p>
+                {% endif %}
+                <a href="{{ ureturn }}">Go Back</a>
+            </div>
+        </div>
+    </div>
+
+{% else %}
+    {% include 'templates\registration\YouAreNotLoggedIn.html' %}
+{% endif %}
+{% endblock content %}
