@@ -181,7 +181,10 @@ class StorageBucket:
         :return: None
         """
         file_writer = default_storage.open(name, 'w')
-        file_writer.write(file.read())
+        if not isinstance(file, bytes):
+            file_writer.write(file.read())
+        else:
+            file_writer.write(file)
         file_writer.close()
 
     @staticmethod

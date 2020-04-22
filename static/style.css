@@ -384,3 +384,91 @@ a{
   padding-left: 1vh;
   padding-right: 1vh;
 }
+
+#search-form
+{
+  display: flex;
+  flex-direction: column;
+}
+
+#search-description
+{
+  align-self: center;
+}
+
+#researcher-tags
+{
+  border: solid;
+  height: 5vh;
+  width: 30vw;
+  font-size: 3vh;
+  font-family: 'Cabin', sans-serif;
+  color: #000;
+  margin-bottom: 1vw;
+}
+
+#researcher-category
+{
+  border: solid;
+  height: 5vh;
+  width: calc(30vw + 8px); /* since the select box has a dropdown arrow that messes with width*/
+  font-size: 3vh;
+  font-family: 'Cabin', sans-serif;
+  color: #000;
+}
+
+#researcher-after-date
+{
+  border: solid;
+  height: 3vh;
+  width: 9vw;
+  font-size: 3vh;
+  font-family: 'Cabin', sans-serif;
+  color: #000;
+  align-self:center;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+#researcher-before-date
+{
+  border: solid;
+  height: 3vh;
+  width: 9vw;
+  font-size: 3vh;
+  font-family: 'Cabin', sans-serif;
+  color: #000;
+  align-self: center;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+#datebox-before
+{
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  margin-top: -1vw;
+}
+#datebox-after
+{
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  margin-bottom: -1vw;
+}
+
+p
+{
+  font-size: 3vh;
+  font-family: 'Cabin', sans-serif;
+  color: #000;
+}
+
+#search
+{
+  border: solid;
+  width: 20vw;
+  height: 6vw;
+  align-self:center;
+}

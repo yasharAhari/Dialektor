@@ -24,6 +24,8 @@ def index_home(request, second=None):
     print(request.user)
     if request.user.is_anonymous:
         return render(request, 'home.html')
+    elif not request.user.inst_addr == '': #if this is a researcher
+        return render(request, 'researcher.html', {'user_id': request.user.user_id})
     return render(request, 'home.html', {'user_id': request.user.user_id})
 
 

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+    <script src="/static/script.js"></script>
+<div id="content">
+<div id="form-container">
+    <form action="/search" method="post" id="search-form"> {% csrf_token %}
+        <p id="search-description">Search for Audio:</p>
+        <input type="text" name="Tags" id="researcher-tags" placeholder="Tags" />
+        <br>
+        <select name="category" id="researcher-category" placeholder="Category">
+            <option value="spoken">Spoken</option>
+            <option value="music">Music</option>
+            <option value="sfx">SFX</option>
+            <option value="misc">Misc</option>
+        </select>
+        <br>
+        <div id="datebox-after">
+            <p>After:</p>
+            <input type="text" name="afterDate" id="researcher-after-date" placeholder="01/02/2019"/>
+        </div>
+        <div id="datebox-before">
+            <p>Before:</p>
+            <input type="text" name="beforeDate" id="researcher-before-date" placeholder="02/02/2020"/>
+            <br>
+        </div>
+      <input type="button" name="search" id="search" value="Search"/>
+    </form>
+</div>
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">login</a>
+  <br>
+  <a href="/signup">signup</a>
+{% endif %}
+{% endblock %}
