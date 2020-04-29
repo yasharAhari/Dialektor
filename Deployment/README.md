@@ -15,7 +15,10 @@ To deploy, you will need a Google account, and permissions for the above service
 
 #### Database prep. 
 
-1. In the Dialektor/Dialektor_/settings.py, find the DATABASES section and change the HOST ip to '35.225.20.84' 
+1. In the Dialektor/Dialektor_/settings.py, find the DATABASES section and change the HOST ip to 
+'/cloudsql/dialektor:us-central1-a:dialektor-db' . 
+
+Note: This is by assuming that the database also created in the same account as the app deployed. If not, you might need to use proxy or have the app IP to be whitelisted. For that reason, contact the database administrator. 
 
 
 ### Final step: Deploy 
