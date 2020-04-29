@@ -1,16 +1,14 @@
-runtime: python
+runtime: python38
 
-# the PROJECT-DIRECTORY is the one with settings.py and wsgi.py
-entrypoint: gunicorn -b :$PORT PROJECT-DIRECTORY.wsgi # specific to a GUnicorn HTTP server deployment
-env: flex # for Google Cloud Flexible App Engine
+ # for Google Cloud Flexible App Engine
 
 # any environment variables you want to pass to your application.
 # accessible through os.environ['VARIABLE_NAME']
 env_variables:
 # the secret key used for the Django app (from PROJECT-DIRECTORY/settings.py)
-  SECRET_KEY: '7b7^dshdx=*&zval+53)z7vzzttfmvs=r2y@ec0ar-0oaw=ug_' 
+  SECRET_KEY: '7b7^dshdx=*&zval+53)z7vzzttfmvs=r2y@ec0ar-0oaw=ug_'
   DEBUG: 'False' # always False for deployment
-  
+
 # everything after /cloudsql/ can be found by entering >> gcloud sql instances describe DATABASE-NAME << in your Terminal
 # the DATABASE-NAME is the name you gave your project's PostgreSQL database
 # the second line from the describe output called connectionName can be copied and pasted after /cloudsql/
@@ -19,12 +17,15 @@ env_variables:
   DB_NAME: 'dialektor-db'
   DB_USER: 'postgres' # either 'postgres' (default) or one you created on the PostgreSQL instance page
   DB_PASSWORD: 'Ny3wnFIbjJ6K0fmF'
-  
+
   STATIC_URL: 'https://storage.googleapis.com/dialektor-static/static/' # this is the url that you sync static files to
-  
+
+
 handlers:
 - url: /static
   static_dir: static
+- url: /.*
+  script: auto
 
 beta_settings:
 # from command >> gcloud sql instances describe dialektor-db <<
