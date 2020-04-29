@@ -15,7 +15,7 @@ Zachary Arani<br>
 
 ### Version info
 Currently running version on google cloud: Beta-0 
-[dialekt.appspot.com_version_0.0.1](https://dialekt.appspot.com/)
+[dialekt.appspot.com_version_Beta-0](https://dialekt.appspot.com/)
 
 About Version Beta-0:<br>
 Beta-0 is the almost finished version of the final product, lacking the final cosmetic touches and the researchers page and functionality. The sound recording, playback, storage, profile, collection all functional. 
