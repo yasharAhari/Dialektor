@@ -14,13 +14,11 @@ Zachary Arani<br>
 [what is Dialektor](./Documentation/Dialektor.md)
 
 ### Version info
-Currently running version on google cloud: 0.0.1
+Currently running version on google cloud: Beta-0 
 [dialekt.appspot.com_version_0.0.1](https://dialekt.appspot.com/)
 
-About Version 0.0.1:<br>
-It is the initial working bed to implement backend functionality. 
-It features the login and signup pages but neither of those has any 
-backend functions... yet.
+About Version Beta-0:<br>
+Beta-0 is the almost finished version of the final product, lacking the final cosmetic touches and the researchers page and functionality. The sound recording, playback, storage, profile, collection all functional. 
 
 ### Important notes: 
 
