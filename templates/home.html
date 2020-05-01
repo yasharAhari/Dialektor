@@ -2,8 +2,8 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 {% if user.is_authenticated %}
-    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
-    <script src="/static/script.js"></script>
+<script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+<script src="/static/script.js"></script>
 <div id="content">
   <div id="options">
     <div id="smallRec"></div>
@@ -19,36 +19,39 @@
   <div id="bar">
     <div id="progress"></div>
   </div>
-<div id="form-container">
-  <div id="data">
-    <form action="/upload" method="post"> {% csrf_token %}
-      <input type="text" name="length" id="length" />
-      <input type="text" name="title" id="title" placeholder="Title" />
-      <br>
-      <div id="container">
-        <div id="autocomplete"></div>
-        <input type="text" name="collection" id="collection" placeholder="Collection" />
-        <div id="add-collection">+</div>
-      </div>
-      <br>
-      <input type="text" name="category" id="category" placeholder="Category" />
-      <br>
-      <input type="text" name="tags" id="tags" placeholder="Tags" />
-      <br>
-      <input type="button" name="save" id="save" value="Save"/><input type="button" name="discard" id="discard" value="Discard" />
-    </form>
+  <div id="form-container">
+    <div id="data">
+      <form action="/upload" method="post"> {% csrf_token %}
+        <input type="text" name="length" id="length" />
+        <input type="text" name="title" id="title" placeholder="Title" />
+        <br>
+        <div id="container">
+          <div id="autocomplete"></div>
+          <input type="text" name="collection" id="collection" placeholder="Collection" />
+          <div id="add-collection">+</div>
+        </div>
+        <br>
+        <input type="text" name="category" id="category" placeholder="Category" />
+        <br>
+        <input type="text" name="tags" id="tags" placeholder="Tags" />
+        <br>
+        <input type="button" name="save" id="save" value="Save" /><input type="button" name="discard" id="discard"
+          value="Discard" />
+      </form>
+    </div>
+    <div id="pic-box" hidden>
+      <img id="collection-pic" />
+    </div>
+    <input type="file" id="image-upload" accept="image/*" />
   </div>
-  <div id="pic-box" hidden>
-    <img id="collection-pic"/>
+  <!-- This script needs to be after everything -->
+  <script src="static/DialektRecorder.js"></script>
+  {% else %}
+  <div id="notLoggedIn">
+    <p>You are not logged in</p>
+    <a href="{% url 'login' %}">login</a>
+    <br>
+    <a href="/signup">signup</a>
   </div>
-  <input type="file" id="image-upload" accept="image/*" />
-</div>
-    <!-- This script needs to be after everything -->
-    <script src="static/DialektRecorder.js"></script>
-{% else %}
-  <p>You are not logged in</p>
-  <a href="{% url 'login' %}">login</a>
-  <br>
-  <a href="/signup">signup</a>
-{% endif %}
-{% endblock %}
+  {% endif %}
+  {% endblock %}

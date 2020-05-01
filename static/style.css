@@ -12,6 +12,9 @@ html, body
   align-items: center;
 }
 
+#notLoggedIn{
+  text-align: center;
+}
 #profile
 {
   font-family: 'Cabin', sans-serif;
