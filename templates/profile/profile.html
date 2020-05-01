@@ -5,62 +5,79 @@
 <link rel="stylesheet" type="text/css" href="/static/profile.css">
 <!-- This is the top level container, it holds all of the page contents below the nav bar.
         This is a flex container with vertical flex-direction, it is also a flex item to its parent  -->
-        <div class="flex-container flex-direction-vertical" id="top-level-flexcontainer">
-            <!-- Flex container holding the user information, which are flex items. Has a horizontal flex-direction
+<div class="flex-container flex-direction-vertical" id="top-level-flexcontainer">
+    <!-- Flex container holding the user information, which are flex items. Has a horizontal flex-direction
             it is also a flex item to its parent container #top-level-flexcontainer  -->
-            <div class="flex-container flex-direction-horizontal" id="userinfo-flexcontainer">
-                <div class="card">
-                    <img src="/profilePic/" alt="{{user.first_name}}" style="width:50%">
-                    <h1>{{user.username}}</h1>
-                    <p>{{user.first_name}} {{user.last_name}}</p>
-                    <p class="Account type">{{user.email}}</p>
-                    <p>personal account</p>
-                    <a href="/userUpdateProfile"><button type="button">Edit Profile</button></a>
-                </div>
+    <div class="flex-container flex-direction-horizontal" id="userinfo-flexcontainer">
+        <div class="card">
+            <img src="/profilePic/" alt="{{user.first_name}}" style="width:50%">
+            <h1>{{user.username}}</h1>
+            <p>{{user.first_name}} {{user.last_name}}</p>
+            <p class="Account type">{{user.email}}</p>
+            <p>personal account</p>
+            <a href="/userUpdateProfile"><button type="button">Edit Profile</button></a>
+            <a href="/logout">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Logout</a>
+        </div>
 
+    </div>
+
+</div>
+<br><br>
+<h2>Recent Sounds</h2>
+<!-- The django for loops to generate all of the sounds will go inside this div -->
+<div class="flex-container flex-direction-horizontal" id="recent-sounds">
+    {% for record_id, data in user_records.items %}
+    <a href="/sounds/{{record_id}}">
+        <div class="grid-item">
+            <h3>
+                <center>{{data.title}}</center>
+            </h3>
+            <p>
+                <center>{{data.date}}</center>
+            </p>
+            <p>
+                <center>collection: {{data.collection}}</center>
+            </p>
+            <p>
+                <center><i>Tags:</i>#{{data.tags}}</center>
+            </p>
+            <center>
+            </center>
+        </div>
+    </a>
+    {% endfor %}
+
+</div>
+<br>
+<h2>My Collections</h2>
+<br>
+<!-- The django for loops to generate all of the collections will go inside this div, in a seperate div -->
+<div class="flex-container flex-direction-horizontal" id="collections">
+    {% for collection_name, data in user_collections.items %}
+
+    <a href="/collection/{{ collection_name }}">
+        <div class="grid-item">
+            <center>
+                <p>{{ collection_name }}</p>
+            </center>
+            <div class="collection-image"
+                style="background: url('/pic/{{ data.picture }}');  background-size: cover; background-repeat: no-repeat; background-position: center; width: 100%">
             </div>
-
         </div>
-        <br><br>
-        <h2>Recent Sounds</h2>
-        <!-- The django for loops to generate all of the sounds will go inside this div -->
-        <div class="flex-container flex-direction-horizontal" id="recent-sounds">
-            {% for record_id, data in user_records.items %}
-              <a href="/sounds/{{record_id}}"><div class="grid-item">
-                <h3><center>{{data.title}}</center></h3>
-                <p><center>{{data.date}}</center></p>
-                <p><center>collection: {{data.collection}}</center></p>
-                <p><center><i>Tags:</i>#{{data.tags}}</center></p>
-                <center>
-                </center>
-              </div></a>
-            {% endfor %}
+    </a>
 
-        </div>
-        <br>
-        <h2>My Collections</h2>
-        <br>
-        <!-- The django for loops to generate all of the collections will go inside this div, in a seperate div -->
-        <div class="flex-container flex-direction-horizontal" id="collections">
-            {% for collection_name, data in user_collections.items %}
+    {% endfor %}
+</div>
+<br>
+<h2>Tags</h2>
+<!-- The django for loops to generate all of the tags will go inside this div -->
+{% for tag_name, data in user_tags.items %}
+<a href="/tag/{{ tag_name }}" style="cursor: pointer">#{{ tag_name }} </a>
 
-                <a href="/collection/{{ collection_name }}"><div class="grid-item">
-                    <center><p>{{ collection_name }}</p></center>
-                    <div class="collection-image" style="background: url('/pic/{{ data.picture }}');  background-size: cover; background-repeat: no-repeat; background-position: center; width: 100%"></div>
-                </div></a>
-
-            {% endfor %}
-        </div>
-        <br>
-        <h2>Tags</h2>
-        <!-- The django for loops to generate all of the tags will go inside this div -->
-        {% for tag_name, data in user_tags.items %}
-            <a href="/tag/{{ tag_name }}" style="cursor: pointer">#{{ tag_name }} </a>
-
-        {% endfor %}
+{% endfor %}
 
 
 {% else %}
-  {% include "/templates/registration/YouAreNotLoggedIn.html" %}
+{% include "/templates/registration/YouAreNotLoggedIn.html" %}
 {% endif %}
 {% endblock %}
