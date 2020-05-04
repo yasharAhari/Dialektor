@@ -8,7 +8,7 @@ function set_up_player()
 {
     var playbacker = document.createElement("AUDIO");
 
-    playbacker.src = "http://127.0.0.1:8000/raw/" + $("#sound-id").html()
+    playbacker.src = "/raw/" + $("#sound-id").html()
     $("#playback").append(playbacker);
     playbacker.currentTime=0;
     sleep(200);
