@@ -202,7 +202,7 @@ function button_press(user_request) {
                 contentType: false,
                 processData: false,
             }).done(function(data) {
-                window.location.replace("http://127.0.0.1:8000/sounds/" + data)
+                window.location.replace("/sounds/" + data)
             });
 
                  })
@@ -238,7 +238,7 @@ function button_press(user_request) {
                 contentType: false,
                 processData: false,
             }).done(function(data) {
-                window.location.replace("http://127.0.0.1:8000/sounds/" + data)
+                window.location.replace("/sounds/" + data)
             });
         }
     }
@@ -324,7 +324,7 @@ function set_up_player()
 {
     var playbacker = document.createElement("AUDIO");
 
-    playbacker.src = "http://127.0.0.1:8000/raw/" + $("#sound-id").html()
+    playbacker.src = "/raw/" + $("#sound-id").html()
     $("#playback").append(playbacker);
     sleep(200);
     $("#bar").show();
