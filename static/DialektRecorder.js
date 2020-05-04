@@ -281,7 +281,7 @@ function playback_tick(audioSource) {
     progress = document.getElementById("progress");   // progress bar
     let current_time = audioSource.currentTime;
     let total_time = context_time;
-    timer_text.innerText = get_minute_second(current_time) + "/" + get_minute_second(total_time);
+    timer_text.innerText = get_minute_second(current_time) + "/" + get_minute_second(total_time+1);
 
     // update the progress bar
     if(current_time<= total_time)

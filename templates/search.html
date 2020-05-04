@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Search{% endblock %}
+{% block content %}
+{% if user.is_authenticated %}
+<link rel="stylesheet" type="text/css" href="/static/profile.css">
+    <script src="/static/DialektSearch.js"></script>
+        <!-- The django for loops to generate all of the sounds will go inside this div -->
+    <h2 id="search-results">Search Results</h2>
+        <div id="researcher-sound-container">
+        {% if sounds %}
+        {% for sound in sounds %}
+            <div class="researcher-sound" id="{{ sound.ID }}">
+                <div class="researcher-sound-controls">
+                    <div class="researcher-start"></div>
+                    <img class="researcher-pause" src="static/pause.svg">
+                </div>
+                <div class="researcher-sound-info">
+                    <p class="researcher-sound-id">{{sound.ID}}</p>
+                    <p class="researcher-sound-date">{{sound.date}}</p>
+                    <p class="researcher-sound-tags"><i>Tags: </i>{{sound.tags}}</p>
+                </div>
+                <audio class="researcher-sound-audio" controls="controls">
+                  Your browser does not support the &lt;audio&gt; tag.
+                  <source src="/raw/{{sound.ID}}" />
+                </audio>
+                <div class="researcher-sound-download">
+                     <img class="researcher-sound-download-logo" src="static/download.png">
+                </div>
+            </div>
+        {% endfor %}
+        {% else %}
+            <p id="no-results">No results found!</p>
+        {% endif %}
+            <a id="search-again" href="/">Search again?</a>
+        </div>
+
+{% else %}
+  {% include "/templates/registration/YouAreNotLoggedIn.html" %}
+{% endif %}
+{% endblock %}

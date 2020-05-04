@@ -6,6 +6,10 @@ html, body
   padding:0;
 }
 
+.container
+{
+  height: 9vmin;
+}
 .login_container{
   display: flex;
   flex-direction: column;
@@ -18,11 +22,14 @@ html, body
 #profile
 {
   font-family: 'Cabin', sans-serif;
-  font-size: 2.5vh;
-  padding: 20px;
+  font-size: 2.5vmin;
+  padding-left: 3vmax;
+  padding-right:3vmax;
+  padding-top: 3vmin;
+  padding-bottom: 3vmin;
   background-color: #000;
   color:white;
-  width: 10vh;
+  width: 10vmin;
   text-align: center;
   display: inline-block;
   float: right;
@@ -36,11 +43,14 @@ html, body
 #logo
 {
   font-family: 'Cabin', sans-serif;
-  font-size: 2.5vh;
-  padding: 20px;
+  font-size: 2.5vmin;
+  padding-left: 3vmax;
+  padding-right:3vmax;
+  padding-top: 3vmin;
+  padding-bottom: 3vmin;
   background-color: #000;
   color:white;
-  width: 10vh;
+  width: 10vmin;
   text-align: center;
   display: inline-block;
   float: left;
@@ -63,7 +73,7 @@ html, body
 
 #content
 {
-  height: 100vh;
+  height: 75vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,15 +96,24 @@ html, body
 
 #pause
 {
-  display: none;
   align-self: center;
-  width: 40vmin;
+  display:none;
+  width: 5vw;
+  height: 35vmin;
+  border-style: solid;
+  border-width: 0px 4vw 0px 4vw;
+  border-color: #202020;
+
 }
 
 #playPause
 {
-  display: none;
-  width: 40vmin;
+  display:none;
+  width: 5vw;
+  height: 35vmin;
+  border-style: solid;
+  border-width: 0px 4vw 0px 4vw;
+  border-color: #202020;
 }
 
 #stop{
@@ -121,7 +140,7 @@ html, body
   background: #fff;
 //  display: none;
   margin-bottom: 20px;
-  margin-left: 35vw;
+  margin-left: auto;
 }
 
 #recorder
@@ -136,15 +155,24 @@ html, body
   width: 0;
   align-self: center;
   height: 0;
-  border-top: 20vmin solid transparent;
+  border-top: 15vmin solid transparent;
   border-left: 40vmin solid black;
   border-bottom: 20vmin solid transparent;
 }
 
+
+
 #options {
   display: flex;
-  width: 40vw;
+  width: 55vmin;
+  height: 0vh;
 
+}
+
+#form-container
+{
+  display:flex;
+  width: 40vw;
 }
 
 #data
@@ -153,11 +181,17 @@ html, body
   display: none;
 }
 
+#data-form
+{
+  display: flex;
+  flex-direction: column;
+}
+
 
 #title
 {
   border: solid;
-  height: 3vh;
+  height: 4vh;
   width: 40vw;
   font-size: 3vh;
   font-family: 'Cabin', sans-serif;
@@ -169,11 +203,10 @@ html, body
 #autocomplete
 
 {
-    width:38.85vw;
-    height: 3vh;
+    width:40vw;
+    height: 4vh;
     line-height: 37px;
-    margin: 0 auto;
-    margin: 0px -14px -15px 8px;
+    margin: 0px -14px 5px 0px;
 }
 
 #container
@@ -188,12 +221,10 @@ html, body
 {
   position: absolute;
   top: 0;
-  right: 0;
   font-size: 3vh;
   font-family: 'Cabin', sans-serif;
   cursor: text;
   border:solid;
-  padding: 0 8px;
   }
 
 #collection
@@ -204,6 +235,7 @@ html, body
 #autocomplete
 {
     color: #aa9f9f;
+    border-color: black;
 }
 
 #collection:focus
@@ -229,9 +261,9 @@ html, body
 #category 
 
 {
-  border: solid;
-  height: 3vh;
-  width: 40vw;
+    border: solid;
+  height: 5vh;
+  width: calc(40vw + 8px); /* since the select box has a dropdown arrow that messes with width*/
   font-size: 3vh;
   font-family: 'Cabin', sans-serif;
   color: #000;
@@ -240,7 +272,7 @@ html, body
 #tags
 {
   border: solid;
-  height: 3vh;
+  height: 5vh;
   width: 40vw;
   font-size: 3vh;
   font-family: 'Cabin', sans-serif;
@@ -300,14 +332,14 @@ input[type=button]
 {
   background-color: white;
   font-family: 'Cabin', sans-serif;
-  font-size: 2.0vh;
+  font-size: 5.0vmin;
 }
 
 input[type=submit]
 {
   background-color: white;
   font-family: 'Cabin', sans-serif;
-  font-size: 2.0vh;
+  font-size: 5.0vmin;
 }
 
 
@@ -342,6 +374,8 @@ input[type=submit]
 a{
   color: inherit; /* usual colors for links too */
   text-decoration: inherit; /* no underline */
+  font-family: 'Cabin', sans-serif;
+  font-size: 3.0vh;
 }
 #pic-box
 {
@@ -349,6 +383,7 @@ a{
   height: 10vw;
   width: 10vw;
   align-self: center;
+  margin-left: 2vw;
 }
 
 #image-upload
@@ -399,12 +434,27 @@ a{
   align-self: center;
 }
 
+#researcher-content
+{
+  margin-top: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#researcher-form-container
+{
+  display:flex;
+  width: 30vw;
+}
+
 #researcher-tags
 {
   border: solid;
-  height: 5vh;
-  width: 30vw;
-  font-size: 3vh;
+  height: 5vmin;
+  width: 30vmax;
+  font-size: 3vmin;
   font-family: 'Cabin', sans-serif;
   color: #000;
   margin-bottom: 1vw;
@@ -413,9 +463,9 @@ a{
 #researcher-category
 {
   border: solid;
-  height: 5vh;
-  width: calc(30vw + 8px); /* since the select box has a dropdown arrow that messes with width*/
-  font-size: 3vh;
+  height: 5vmin;
+  width: calc(30vmax + 8px); /* since the select box has a dropdown arrow that messes with width*/
+  font-size: 3vmin;
   font-family: 'Cabin', sans-serif;
   color: #000;
 }
@@ -424,26 +474,26 @@ a{
 {
   border: solid;
   height: 3vh;
-  width: 9vw;
-  font-size: 3vh;
+  width: 18vmin;
+  font-size: 3vmin;
   font-family: 'Cabin', sans-serif;
   color: #000;
   align-self:center;
   margin-right: 10px;
-  margin-left: 10px;
+  margin-left: 2vw;
 }
 
 #researcher-before-date
 {
   border: solid;
   height: 3vh;
-  width: 9vw;
-  font-size: 3vh;
+  width: 18vmin;
+  font-size: 3vmin;
   font-family: 'Cabin', sans-serif;
   color: #000;
   align-self: center;
   margin-right: 10px;
-  margin-left: 10px;
+  margin-left: 1vw;
 }
 
 #datebox-before
@@ -451,7 +501,12 @@ a{
   display: flex;
   flex-direction: row;
   align-self: center;
-  margin-top: -1vw;
+  margin-top: -4vh;
+}
+
+::placeholder
+{
+  color:darkgrey;
 }
 #datebox-after
 {
@@ -474,4 +529,104 @@ p
   width: 20vw;
   height: 6vw;
   align-self:center;
+}
+
+#search-results
+{
+  margin-top:0;
+  text-align: center;
+}
+
+.researcher-sound
+{
+  display:flex;
+  border:solid;
+  margin-bottom: 2vh;
+  align-self:center;
+  width: 55vmin;
+}
+
+#researcher-sound-container
+{
+  display: flex;
+  flex-direction: column;
+}
+
+.researcher-sound-controls
+{
+  align-self: center;
+  margin-left: 4%;
+}
+
+.researcher-sound-info
+{
+  display:flex;
+  flex-direction: column;
+  margin-left: 4%;
+}
+
+.researcher-sound-audio
+{
+  display:none;
+}
+
+.researcher-sound-download
+{
+  align-self: center;
+  margin-left: auto;
+  margin-right: 2vmin;
+}
+
+.researcher-sound-download-logo
+{
+  width: 5vmin;
+}
+
+.researcher-sound-id
+{
+  font-size: 2vmin;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+.researcher-sound-date
+{
+  font-size: 2vmin;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+.researcher-sound-tags
+{
+  font-size: 2vmin;
+  margin-top: 1px;
+  margin-bottom: 1px;
+}
+
+.researcher-start {
+
+  width: 0;
+  align-self: center;
+  height: 0;
+  border-top: 3vmin solid transparent;
+  border-left: 7vmin solid black;
+  border-bottom: 3vmin solid transparent;
+}
+
+.researcher-pause
+{
+  display: none;
+  align-self: center;
+  width: 7vmin;
+}
+
+#no-results
+{
+  text-align: center;
+  margin-bottom: 4vh;
+}
+
+#search-again
+{
+  text-align: center;
 }

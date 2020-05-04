@@ -180,8 +180,9 @@ class StorageBucket:
         :param file: file itself as binary
         :return: None
         """
-        file_writer = default_storage.open(name, 'w')
+        file_writer = default_storage.open(name, 'wb')
         if not isinstance(file, bytes):
+            file.seek(0) #Make sure we're not reading the END of the file
             file_writer.write(file.read())
         else:
             file_writer.write(file)
@@ -194,10 +195,11 @@ class StorageBucket:
         :param name: The name of the file to read
         :return: the file in binary
         """
-        file_reader = default_storage.open(name, 'r')
-        file = file_reader.read()
+        file_reader = default_storage.open(name, 'rb')
+        file_reader.seek(0)
+        bytes = file_reader.read()
         file_reader.close()
-        return file
+        return bytes
 
     @staticmethod
     def delete_given_file(name):

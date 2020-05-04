@@ -6,7 +6,6 @@ html,body
 }
 body
 {
-    background-color: #EFF4F0;
 }
 #branding
 {
@@ -23,23 +22,22 @@ body
 }
 #login_box
 {
-    background-color: #244C60;
+    background-color: black;
     width: 320px;
     display: inline-block;
     margin-top: 75px;
     padding: 50px;
-    border-radius: 20px;
 
 }
 
 #signup_box
 {
-    background-color: #244C60;
+    background-color: black;
     width: 500px;
     display: inline-block;
     margin-top: 75px;
     padding: 50px;
-    border-radius: 20px;
+    font-family: 'Cabin', sans-serif;
 }
 
 .css_form_inputs
@@ -47,18 +45,17 @@ body
     text-align: center;
     width: 75%;
     font-size: 20px;
-    border-radius: 10px;
+    font-family: 'Cabin', sans-serif;
 
 }
 
 .form_submit
 {
     width: 150px;
-    border-radius: 25px;
-    background-color:#EFF4F0;
+    background-color:white;
     font-size: 20px;
     color: #384640;
-    font-family: Helvetica;
+    font-family: 'Cabin', sans-serif;
     font-weight: bold;
     border-style: unset;
     cursor: pointer;

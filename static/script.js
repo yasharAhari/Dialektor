@@ -1,6 +1,7 @@
 
 $(document).ready(function(){
- var collections = ""
+ var collections = "";
+ var alreadyClicked = false;
     $.ajaxSetup({
          beforeSend: function(xhr, settings) {
              function getCookie(name) {
@@ -64,8 +65,8 @@ $(document).ready(function(){
     $("#stop").hide();
     $("#start").show();
     $("#smallRec").hide();
-    $("#data").show();
-    $("#pic-box").show();
+    $("#data").css('display', 'flex');
+    //$("#pic-box").show();
     $("#bar").show();
     $("#progress").show();
     button_press(user_requests.STOP_RECORDING);
@@ -84,7 +85,13 @@ $(document).ready(function(){
   });
   
   $("#save").click(function () {
-    button_press(user_requests.SAVE);
+    if(!alreadyClicked)
+    {
+        button_press(user_requests.SAVE);
+        $("#save").attr("value", "Saving...");
+    }
+    alreadyClicked = true;
+
   });
   
   $("#discard").click(function () {

@@ -10,8 +10,8 @@
   </div>
   <div id="recorder">
     <div id="rec"></div>
-    <img id="pause" src="static/pause.svg">
-    <img id="playPause" src="static/pause.svg">
+    <div id="pause"></div>
+    <div id="playPause"></div>
     <div id="stop"></div>
     <div id="start"></div>
   </div>
@@ -21,7 +21,7 @@
   </div>
   <div id="form-container">
     <div id="data">
-      <form action="/upload" method="post"> {% csrf_token %}
+      <div action="/upload" method="post" id="data-form"> {% csrf_token %}
         <input type="text" name="length" id="length" />
         <input type="text" name="title" id="title" placeholder="Title" />
         <br>
@@ -31,12 +31,19 @@
           <div id="add-collection">+</div>
         </div>
         <br>
-        <input type="text" name="category" id="category" placeholder="Category" />
+        <select name="category" id="category" placeholder="Category">
+            <option value="spoken">Spoken</option>
+            <option value="music">Music</option>
+            <option value="sfx">SFX</option>
+            <option value="misc">Misc</option>
+        </select>
         <br>
         <input type="text" name="tags" id="tags" placeholder="Tags" />
         <br>
-        <input type="button" name="save" id="save" value="Save" /><input type="button" name="discard" id="discard"
+        <div id="form-buttons">
+            <input type="button" name="save" id="save" value="Save" /><input type="button" name="discard" id="discard"
           value="Discard" />
+        </div>
       </form>
     </div>
     <div id="pic-box" hidden>

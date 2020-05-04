@@ -6,7 +6,6 @@ html,body
 }
 body
 {
-    background-color: #EFF4F0;
 }
 #branding
 {
@@ -34,12 +33,11 @@ body
 
 #signup_box
 {
-    background-color: #244C60;
+    background-color: black;
     width: 500px;
     display: inline-block;
     margin-top: 75px;
     padding: 50px;
-    border-radius: 20px;
 }
 
 .css_form_inputs
@@ -47,7 +45,6 @@ body
     text-align: center;
     width: 75%;
     font-size: 20px;
-    border-radius: 10px;
 
 }
 

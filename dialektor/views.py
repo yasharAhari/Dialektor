@@ -5,17 +5,16 @@ from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
-from django.contrib.auth import authenticate, login, update_session_auth_hash, logout
+from django.contrib.auth import authenticate, login, update_session_auth_hash
 from .models import CustomUser, metadata
 from .models import collection as Collection
 from dialektor_files.fileHandling import DialektFileSecurity, StorageBucket
 import hashlib
 from django.core.exceptions import ObjectDoesNotExist
-
-
-def logout_view(request):
-    logout(request)
-    return redirect('/')
+from django.db.models import Q
+import operator
+from functools import reduce
+from datetime import datetime
 
 
 def login_user(request, second=None):
@@ -36,10 +35,10 @@ def index_home(request, second=None):
 def render_sound(request, sound_id):
     sound = metadata.objects.get(fileID=sound_id)
     user = CustomUser.objects.get(user_id=sound.user_id)
-    collection = Collection.objects.get(
-        user_id=sound.user_id, name=sound.collection)
+    collection = Collection.objects.get(user_id=sound.user_id, name=sound.collection)
     print(sound.title)
-    return render(request, 'sound.html', {'sound': sound_id, 'title': sound.title, 'author': user.username, 'pic_src': collection.pic_id})
+    return render(request, 'sound.html',
+                  {'sound': sound_id, 'title': sound.title, 'author': user.username, 'pic_src': collection.pic_id})
 
 
 def get_sound(request, sound_id):
@@ -50,12 +49,21 @@ def get_sound(request, sound_id):
     return HttpResponse(file_rcv, content_type='application/force-download')
 
 
+def download_sound(request, sound_id):
+    meta_obj = metadata.objects.get(fileID=sound_id)
+    storage = StorageBucket(meta_obj)
+    storage.s_read_file_from_bucket()
+    file_rcv = storage.file
+    response = HttpResponse(file_rcv, content_type='audio/mpeg')
+    response['Content-Disposition'] = 'attachment; filename= "{}"'.format(sound_id)
+    return response
+
+
 def get_picture(request, pic_id):
     try:
         file_rcv = StorageBucket.read_file_from_storage(pic_id)
     except IOError:
-        file_rcv = StorageBucket.read_file_from_storage(
-            'defaultCollection.png')
+        file_rcv = StorageBucket.read_file_from_storage('defaultCollection.png')
     return HttpResponse(file_rcv, content_type='image/png')
 
 
@@ -71,9 +79,10 @@ def create_user(request):
     instCity = request.POST['institution_city']
     instState = request.POST['institution_state']
     instCountry = request.POST['institution_country']
-    id = hashlib.md5(str.encode(username+email))
-    CustomUser.objects.create_user(username, email, password, first_name=firstName, last_name=lastName, inst_name=instName,
-                                   inst_addr=instAddr, inst_city=instCity, inst_state=instState, inst_country=instCountry, user_id=id.hexdigest())
+    id = hashlib.md5(str.encode(username + email))
+    CustomUser.objects.create_user(username, email, password, first_name=firstName, last_name=lastName,
+                                   inst_name=instName, inst_addr=instAddr, inst_city=instCity, inst_state=instState,
+                                   inst_country=instCountry, user_id=id.hexdigest())
     loginInfo = authenticate(username=username, password=password)
     login(request, loginInfo)
     return redirect('/')
@@ -89,10 +98,9 @@ def upload(request):
     tags = request.POST.get('tags', 'none')
     length = request.POST.get('length', 'none')
     user = request.user.user_id
-    fileID = hash_object = hashlib.md5(
-        str.encode(title+user+collection)).hexdigest()
-    file = metadata(user_id=user, title=title,  rec_length=length,
-                    collection=collection, category=category, tags=tags, fileID=fileID)
+    fileID = hash_object = hashlib.md5(str.encode(title + user + collection)).hexdigest()
+    file = metadata(user_id=user, title=title, rec_length=length, collection=collection, category=category, tags=tags,
+                    fileID=fileID)
     file.save()
     meta_obj = metadata.objects.get(fileID=fileID)
     storage_bucket = StorageBucket(meta_obj)
@@ -106,9 +114,8 @@ def upload(request):
     col_name = request.POST.get('collection', 'none')
     names = [collection.name for collection in collections]
     if col_name not in names:
-        pic_id = hashlib.md5(str.encode(col_name+user)).hexdigest()
-        c = Collection(user_id=user, name=request.POST.get(
-            'collection', 'none'), pic_id=pic_id)
+        pic_id = hashlib.md5(str.encode(col_name + user)).hexdigest()
+        c = Collection(user_id=user, name=request.POST.get('collection', 'none'), pic_id=pic_id)
         c.save()
         collection_pic = request.FILES.get('collection-pic', None)
         if collection_pic is not None:
@@ -127,13 +134,13 @@ def profile(request):
     # since we are trying to access user information
     if request.user.is_anonymous:
         return HttpResponseRedirect('/')
-    # TODO: only list latest 10 recordings
+
+    ## TODO: only list latest 10 recordings
 
     userId = request.user.user_id
 
     # Get list of all user recordings, we need all of them for getting tags
-    meta_objs = metadata.objects.filter(
-        user_id=userId).order_by('-date_created')
+    meta_objs = metadata.objects.filter(user_id=userId).order_by('-date_created')
 
     # All user tags
     tags = set([])
@@ -184,7 +191,6 @@ def profile(request):
 
 
 def collection_list(request, collection_name):
-
     # check if user is logged in
     if request.user.is_anonymous:
         return HttpResponseRedirect('/')
@@ -199,8 +205,7 @@ def collection_list(request, collection_name):
                          url_return='/profile/')
 
     # Get list of all user recordings, we need all of them for getting tags
-    meta_objs = metadata.objects.filter(
-        user_id=user, collection=collection_name).order_by('-date_created')
+    meta_objs = metadata.objects.filter(user_id=user, collection=collection_name).order_by('-date_created')
     # records are dic of all user recordings
     records = {}
     tags = set([])
@@ -243,15 +248,13 @@ def tag_list(request, tag_name):
 
     user = request.user.user_id
 
-    meta_objs = metadata.objects.filter(
-        user_id=user, tags__contains=tag_name).order_by('-date_created')
+    meta_objs = metadata.objects.filter(user_id=user, tags__contains=tag_name).order_by('-date_created')
     if len(meta_objs) == 0:
         return messenger(request, message="No such Tag", m_type="warning", url_return="/profile/")
 
     # records are dic of all user recordings
     records = {}
     for obj in meta_objs:
-
         data = {
             'title': obj.title,
             'date': obj.date_created,
@@ -268,9 +271,8 @@ def tag_list(request, tag_name):
 
 
 def get_user_profile_pic_id(user_info: CustomUser):
-
-    hashed = hashlib.md5(str.encode(user_info.email + user_info.username +
-                                    "picture_salt_1ef88f55e84sf684tht6")).hexdigest()
+    hashed = hashlib.md5(
+        str.encode(user_info.email + user_info.username + "picture_salt_1ef88f55e84sf684tht6")).hexdigest()
     print(hashed)
     return hashed
 
@@ -285,10 +287,8 @@ def profile_update(request):
         ##profile_pic = request.POST.get('profile-pic', False)
         ##print(request.POST.get('profile-pic', False))
         if request.FILES['profile-pic']:
-            pic_file_id = get_user_profile_pic_id(
-                CustomUser.objects.get(username=request.user.username))
-            StorageBucket.write_file_to_storage(
-                pic_file_id, request.FILES['profile-pic'].read())
+            pic_file_id = get_user_profile_pic_id(CustomUser.objects.get(username=request.user.username))
+            StorageBucket.write_file_to_storage(pic_file_id, request.FILES['profile-pic'].read())
 
         return messenger(request, message="Changes Saved Successfully!", m_type="success", url_return="/profile/")
 
@@ -301,8 +301,7 @@ def profile_update(request):
 
 
 def get_profile_pic(request):
-    pic_file_name = get_user_profile_pic_id(
-        CustomUser.objects.get(username=request.user.username))
+    pic_file_name = get_user_profile_pic_id(CustomUser.objects.get(username=request.user.username))
     print("serving the file " + pic_file_name)
     try:
         file_rcv = StorageBucket.read_file_from_storage(pic_file_name)
@@ -348,3 +347,46 @@ def get_collections(request):
     for collection in collections:
         collection_list += collection.name + ", "
     return HttpResponse(collection_list)
+
+
+def search(request):
+    tags = request.POST['tags']
+    tags_list = tags.split(',')  # split tags into seprate items
+    tags_list = [x.strip(' ') for x in tags_list]
+    category = request.POST['category']
+    after = request.POST['afterDate']
+    before = request.POST['beforeDate']
+    useAfter = False
+    useBefore = False
+    if not after=='':
+        useAfter = True
+    if not before=='':
+        useBefore = True
+    sounds = metadata.objects.filter(category__iexact=category).filter(reduce(operator.and_,
+                                                                              (Q(tags__icontains=x) for x in
+                                                                               tags_list))).order_by('-date_created')  # For now search for items that are in the category and with the tags within the given tags
+    sound_list = {}
+    tags = set([])
+    if useBefore:
+        before_dt = datetime.strptime(before, "%m/%d/%Y")
+    if useAfter:
+        after_dt = datetime.strptime(after, "%m/%d/%Y")
+    for obj in sounds:
+        # Add the tags in the current record to the list
+        obj_dt = datetime.strptime(obj.date_created.__str__()[0:10], "%Y-%m-%d")
+        if \
+                ((useBefore and useAfter) and obj_dt > after_dt and obj_dt < before_dt) \
+                or ((useBefore and not useAfter) and obj_dt < before_dt) \
+                or ((useAfter and not useBefore) and obj_dt > after_dt) \
+                or (not useAfter and not useAfter):
+            for tag in obj.tags.split(','):
+                tags.add(tag.strip())
+
+            data = {
+                'ID': obj.fileID,
+                'date': obj.date_created,
+                'tags': obj.tags,
+            }
+            sound_list[obj.fileID] = data
+
+    return render(request, 'search.html', {'sounds': sound_list.values()})

@@ -29,16 +29,15 @@ urlpatterns = [
     path('sounds/<str:sound_id>/', views.render_sound, name='render_sound'),
     path('pic/<str:pic_id>/', views.get_picture, name="get pic"),
     path('raw/<str:sound_id>/', views.get_sound, name="get_sound"),
-
-    path('profile/', views.profile, name="profile"),
+    path('download/<str:sound_id>/', views.download_sound, name="download_sound"),
+    path('profile/',views.profile, name="profile"),
     path('userUpdateProfile/', views.profile_update, name="profile_update"),
     path('changePassword/', views.change_pass, name="change_pass"),
-    path('collection/<str:collection_name>/',
-         views.collection_list, name="collection_list"),
+    path('collection/<str:collection_name>/', views.collection_list, name="collection_list"),
     path('tag/<str:tag_name>/', views.tag_list, name="tag_list"),
     path('profilePic/', views.get_profile_pic, name="get_profile_pic"),
 
     path('collections', views.get_collections, name="get_collections"),
-    path('logout', views.logout_view, name='logout')
 
+    path('search', views.search, name="search")
 ]
