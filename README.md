@@ -14,7 +14,7 @@ Zachary Arani<br>
 [what is Dialektor](./Documentation/Dialektor.md)
 
 ### Version info
-Currently running version on google cloud: Beta-0 
+Currently ~~running~~ version on google cloud: Beta-0 
 [dialekt.appspot.com_version_Beta-0](https://dialekt.appspot.com/)
 
 About Version Beta-0:<br>
