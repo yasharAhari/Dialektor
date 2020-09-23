@@ -11,22 +11,38 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from google.oauth2 import service_account
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
+# Access multiple environmental values
+
+# Environment setting
+ENVIRONMENT_TYPE = os.environ.get("DLK_ENV")
+
+# db sensitive info
+DB_HOST = os.environ.get("DLK_DB_HOST")
+DB_NAME = os.environ.get("DLK_DB_NAME")
+DB_USER = os.environ.get("DLK_DB_USER")
+DB_PASS = os.environ.get("DLK_DB_PASS")
+
+# debug setting
+if ENVIRONMENT_TYPE == "DEVELOPMENT":
+    DEBUG = True
+    MEDIA_ROOT = "./DLK_TEMP_STORAGE/"
+elif ENVIRONMENT_TYPE == "PRODUCTION":
+    DEBUG = False
+    MEDIA_ROOT = "/DLK_TEMP_STORAGE/"
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '7b7^dshdx=*&zval+53)z7vzzttfmvs=r2y@ec0ar-0oaw=ug_'
+SECRET_KEY = os.environ.get("DLK_SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['dialekt.appspot.com',
-                 '127.0.0.1',
-                 '192.168.1.76']
+ALLOWED_HOSTS = ['mergen.pw',
+                 '127.0.0.1',]
 
 # Application definition
 
@@ -78,11 +94,11 @@ WSGI_APPLICATION = 'Dialektor_.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': '127.0.0.1',
+        'HOST': DB_HOST,
         'PORT': '5432',
-        'NAME': 'dialekt-users',
-        'USER': 'dialekt-app',
-        'PASSWORD': 'GpsLoGKmOOFi5JEi'
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASS
     }
 }
 
@@ -122,7 +138,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = "./statics/"
+STATIC_ROOT = "/mnt/statics/"
 
 STATICFILES_DIRS = [
     "./static_files_workbench",
@@ -137,9 +153,3 @@ SITE_URL = "http://127.0.0.1:8000"
 AUTH_USER_MODEL = "dialektor.CustomUser" 
 
 
-# Settings for google cloud storage
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-GS_BUCKET_NAME = 'dialekt_storage'
-GS_PROJECT_ID = '240407835645'
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    "./dialektor/GS_Credentials/dialekt-21418024ba66.json")
