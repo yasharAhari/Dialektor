@@ -39,7 +39,7 @@ elif ENVIRONMENT_TYPE == "PRODUCTION":
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get("DLK_SECRET_KEY")
+SECRET_KEY = open('Dialektor_/DLK_SEC_KEY').readline()
 
 ALLOWED_HOSTS = ['mergen.pw',
                  '127.0.0.1',]
