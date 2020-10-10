@@ -32,7 +32,7 @@ DB_PASS = os.environ.get("DLK_DB_PASS")
 # debug setting
 if ENVIRONMENT_TYPE == "DEVELOPMENT":
     DEBUG = True
-    MEDIA_ROOT = "./DLK_TEMP_STORAGE/"
+    MEDIA_ROOT = "DLK_TEMP_STORAGE/"
 elif ENVIRONMENT_TYPE == "PRODUCTION":
     DEBUG = False
     MEDIA_ROOT = "/DLK_TEMP_STORAGE/"
