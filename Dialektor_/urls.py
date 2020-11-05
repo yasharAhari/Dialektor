@@ -19,15 +19,15 @@ from django.conf.urls import url
 from django.views.generic.base import TemplateView
 import dialektor.views as views
 
-subdomain = 'dialector/'
+subdomain = 'dialektor/'
 
 urlpatterns = [
     path(subdomain + 'admin/', admin.site.urls),
     path(subdomain + 'accounts/', include('django.contrib.auth.urls')),
     path(subdomain + '', views.index_home, name='home'),
-    path(subdomain + 'signup/', views.signup),
-    path(subdomain + 'signup/create_user', views.create_user),
-    path(subdomain + 'upload', views.upload),
+    path(subdomain + 'signup/', views.signup, name="signup"),
+    path(subdomain + 'signup/create_user', views.create_user, name="create_user"),
+    path(subdomain + 'upload', views.upload, name="upload"),
     path(subdomain + 'sounds/<str:sound_id>/', views.render_sound, name='render_sound'),
     path(subdomain + 'pic/<str:pic_id>/', views.get_picture, name="get pic"),
     path(subdomain + 'raw/<str:sound_id>/', views.get_sound, name="get_sound"),

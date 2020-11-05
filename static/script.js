@@ -26,7 +26,7 @@ $(document).ready(function(){
         }
     });
     $.ajax({
-        url: 'collections',
+        url: 'dialektor/collections',
         type: 'POST',
         contentType: false,
         processData: false,

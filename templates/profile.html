@@ -2,7 +2,7 @@
 {% block title %}Profile{% endblock %}
 {% block content %}
 {% if user.is_authenticated %}
-<link rel="stylesheet" type="text/css" href="/static/profile.css">
+<link rel="stylesheet" type="text/css" href="/static/dialektor/profile.css">
 <!-- This is the top level container, it holds all of the page contents below the nav bar.
         This is a flex container with vertical flex-direction, it is also a flex item to its parent  -->
         <div class="flex-container flex-direction-vertical" id="top-level-flexcontainer">
@@ -15,7 +15,7 @@
                     <p>{{user.first_name}} {{user.last_name}}</p>
                     <p class="Account type">{{user.email}}</p>
                     <p>personal account</p>
-                    <a href="/userUpdateProfile"><button type="button">Edit Profile</button></a>
+                    <a href="/dialektor/userUpdateProfile"><button type="button">Edit Profile</button></a>
                 </div>
 
             </div>
@@ -26,7 +26,7 @@
         <!-- The django for loops to generate all of the sounds will go inside this div -->
         <div class="flex-container flex-direction-horizontal" id="recent-sounds">
             {% for record_id, data in user_records.items %}
-              <a href="/sounds/{{record_id}}"><div class="grid-item">
+              <a href="/dialektor/sounds/{{record_id}}"><div class="grid-item">
                 <h3><center>{{data.title}}</center></h3>
                 <p><center>{{data.date}}</center></p>
                 <p><center>collection: {{data.collection}}</center></p>
@@ -34,7 +34,7 @@
                 <center>
                 <audio controls="controls" >
                   Your browser does not support the &lt;audio&gt; tag.
-                  <source src="/raw/{{record_id}}" />
+                  <source src="/dialektor/raw/{{record_id}}" />
                 </audio>
                 </center>
               </div></a>

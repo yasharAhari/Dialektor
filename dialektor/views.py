@@ -77,7 +77,7 @@ def create_user(request):
                                    inst_country=instCountry, user_id=id.hexdigest())
     loginInfo = authenticate(username=username, password=password)
     login(request, loginInfo)
-    return redirect('/')
+    return redirect('/dialektor/')
 
 
 def upload(request):
@@ -119,7 +119,7 @@ def profile(request):
     # check if user is logged in
     # since we are trying to access user information
     if request.user.is_anonymous:
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/dialektor/')
 
     ## TODO: only list latest 10 recordings
 
@@ -168,7 +168,7 @@ def profile(request):
 
     content = {
         # TODO: get real profile pic name after it gets implemented
-        'profile_pic': '/static/defaultprofile1.png',
+        'profile_pic': '/static/dialektor/defaultprofile1.png',
         'user_records': records,
         'user_collections': collections,
         'user_tags': user_tags
@@ -179,7 +179,7 @@ def profile(request):
 def collection_list(request, collection_name):
     # check if user is logged in
     if request.user.is_anonymous:
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/dialektor/')
 
     user = request.user.user_id
 
@@ -188,7 +188,7 @@ def collection_list(request, collection_name):
         collection = Collection.objects.get(user_id=user, name=collection_name)
     except ObjectDoesNotExist:
         return messenger(request, message="No such collection as " + collection_name, m_type="warning",
-                         url_return='/profile/')
+                         url_return='/dialektor/profile/')
 
     # Get list of all user recordings, we need all of them for getting tags
     meta_objs = metadata.objects.filter(user_id=user, collection=collection_name).order_by('-date_created')
@@ -230,13 +230,13 @@ def collection_list(request, collection_name):
 def tag_list(request, tag_name):
     # check if user is logged in
     if request.user.is_anonymous:
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect('/dialektor/')
 
     user = request.user.user_id
 
     meta_objs = metadata.objects.filter(user_id=user, tags__contains=tag_name).order_by('-date_created')
     if len(meta_objs) == 0:
-        return messenger(request, message="No such Tag", m_type="warning", url_return="/profile/")
+        return messenger(request, message="No such Tag", m_type="warning", url_return="/dialektor/profile/")
 
     # records are dic of all user recordings
     records = {}
@@ -276,12 +276,12 @@ def profile_update(request):
             pic_file_id = get_user_profile_pic_id(CustomUser.objects.get(username=request.user.username))
             StorageBucket.write_file_to_storage(pic_file_id, request.FILES['profile-pic'].read())
 
-        return messenger(request, message="Changes Saved Successfully!", m_type="success", url_return="/profile/")
+        return messenger(request, message="Changes Saved Successfully!", m_type="success", url_return="/dialektor/profile/")
 
     else:
         content = {
             # TODO: get real profile pic name after it gets implemented
-            'profile_pic': '/static/defaultprofile1.png',
+            'profile_pic': '/static/dialektor/defaultprofile1.png',
         }
         return render(request, "profile/editUserProfile.html", content)
 
@@ -316,13 +316,13 @@ def change_pass(request):
             user.set_password(new_pass)
             user.save()
             update_session_auth_hash(request, request.user)
-            return messenger(request, message="Password successfully updated!", m_type="success", url_return="/profile")
+            return messenger(request, message="Password successfully updated!", m_type="success", url_return="/dialektor/profile")
     else:
         return render(request, 'profile/providePass.html', {'message': message})
     pass
 
 
-def messenger(request, message="Hello there", m_type="undefined", url_return="/"):
+def messenger(request, message="Hello there", m_type="undefined", url_return="/dialektor/"):
     return render(request, 'profile/messenger.html', {'message': message, 'type': m_type, 'ureturn': url_return})
 
 

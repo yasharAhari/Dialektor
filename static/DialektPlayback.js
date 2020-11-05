@@ -8,7 +8,7 @@ function set_up_player()
 {
     var playbacker = document.createElement("AUDIO");
 
-    playbacker.src = "/raw/" + $("#sound-id").html()
+    playbacker.src = "/dialektor/raw/" + $("#sound-id").html()
     $("#playback").append(playbacker);
     playbacker.currentTime=0;
     sleep(200);

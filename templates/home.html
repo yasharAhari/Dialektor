@@ -3,7 +3,7 @@
 {% block content %}
 {% if user.is_authenticated %}
 <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
-<script src="/static/script.js"></script>
+<script src="/static/dialektor/script.js"></script>
 <div id="content">
   <div id="options">
     <div id="smallRec"></div>
@@ -52,13 +52,13 @@
     <input type="file" id="image-upload" accept="image/*" />
   </div>
   <!-- This script needs to be after everything -->
-  <script src="static/DialektRecorder.js"></script>
+  <script src="/static/dialektor/DialektRecorder.js"></script>
   {% else %}
   <div id="notLoggedIn">
     <p>You are not logged in</p>
     <a href="{% url 'login' %}">login</a>
     <br>
-    <a href="/signup">signup</a>
+    <a href="{% url 'signup' %}">signup</a>
   </div>
   {% endif %}
   {% endblock %}

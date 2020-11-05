@@ -136,17 +136,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/dialektor'
 
-STATIC_ROOT = "/mnt/statics/"
+STATIC_ROOT = "/mnt/static/dialektor"
 
 STATICFILES_DIRS = [
     "./static_files_workbench",
     os.path.join(BASE_DIR, "static")
 ]
 
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = '/dialektor/'
+LOGOUT_REDIRECT_URL = "/dialektor/"
 
 SITE_URL = "http://127.0.0.1:8000"
 

@@ -2,11 +2,11 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 
- <script src="/static/DialektPlayback.js"></script>
+ <script src="/static/dialektor/DialektPlayback.js"></script>
 <div id="content">
   <div class="sound-detail">
     <div id="pic-box">
-        <img id="collection-pic" src="/pic/{{pic_src}}"/>
+        <img id="collection-pic" src="/dialektor/pic/{{pic_src}}"/>
     </div>
     <div id="sound-description">
         <p id="sound-title">{{title}}</p>
@@ -33,6 +33,6 @@
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">login</a>
   <br>
-  <a href="/signup">signup</a>
+  <a href="/dialektor/signup">signup</a>
 {% endif %}
 {% endblock %}

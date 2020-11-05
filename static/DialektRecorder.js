@@ -202,7 +202,7 @@ function button_press(user_request) {
                 contentType: false,
                 processData: false,
             }).done(function(data) {
-                window.location.replace("/sounds/" + data)
+                window.location.replace("/dialektor/sounds/" + data)
             });
 
                  })
@@ -238,7 +238,7 @@ function button_press(user_request) {
                 contentType: false,
                 processData: false,
             }).done(function(data) {
-                window.location.replace("/sounds/" + data)
+                window.location.replace("/dialektor/sounds/" + data)
             });
         }
     }
@@ -324,7 +324,7 @@ function set_up_player()
 {
     var playbacker = document.createElement("AUDIO");
 
-    playbacker.src = "/raw/" + $("#sound-id").html()
+    playbacker.src = "/dialektor/raw/" + $("#sound-id").html()
     $("#playback").append(playbacker);
     sleep(200);
     $("#bar").show();

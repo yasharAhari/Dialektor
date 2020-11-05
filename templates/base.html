@@ -17,11 +17,11 @@
 <body>
   <header>
     <div class="container">
-      <div id="logo"><a href="/">dialektor</a></div>
+      <div id="logo"><a href="/dialektor/">dialektor</a></div>
       {% if user.username %}
-          <a href="/profile"><div id="profile">{{user.username}}</div></a>
+          <a href="/dialektor/profile"><div id="profile">{{user.username}}</div></a>
       {% else %}
-      <div id="profile"><a href="/accounts/login">Log in!</a></div>
+      <div id="profile"><a href="/dialektor/accounts/login">Log in!</a></div>
       {% endif %}
     </div>
   </header>
